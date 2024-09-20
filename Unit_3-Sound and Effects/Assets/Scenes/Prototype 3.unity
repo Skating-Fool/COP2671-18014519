@@ -511,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_LocalRotation.x
@@ -519,7 +519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_LocalRotation.z
@@ -531,11 +531,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286836433298358808, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: jumpForce
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286836433298358808, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: gravityModifier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525497627847474314, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: m_Size.y
+      value: 2.8277915
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525497627847474314, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: m_Center.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525497627847474314, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: m_Center.y
+      value: 1.4196717
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525497627847474314, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525497627847474314, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520929689743080733, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
+      propertyPath: m_Mass
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6520929689743080733, guid: 2f8d00bf5057f624e949aef802595da9, type: 3}
       propertyPath: m_Constraints
@@ -560,7 +592,7 @@ GameObject:
   - component: {fileID: 2014335012}
   m_Layer: 9
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
