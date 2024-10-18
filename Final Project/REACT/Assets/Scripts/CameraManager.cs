@@ -9,7 +9,7 @@ public enum cam
     OrthographicCam
 }
 
-public class CameraController : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
     
     public GameObject freeCamera;
@@ -18,10 +18,10 @@ public class CameraController : MonoBehaviour
 
     private GameObject[] cameras = new GameObject[3];
     private Camera[] cameraComponents = new Camera[3];
-    private CameraBase[] currentCameraMovers = new CameraBase[3];
+    private CameraControllerBase[] currentCameraMovers = new CameraControllerBase[3];
 
     private Camera currentCameraComponent;
-    private CameraBase currentCameraMover;
+    private CameraControllerBase currentCameraController;
     [SerializeField] private cam currentCamera = cam.FreeCam;
 
     void Start()
@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
         foreach (var cam in cameras)
         {
             cameraComponents[index] = cam.GetComponent<Camera>();
-            currentCameraMovers[index] = cam.GetComponent<CameraBase>();
+            currentCameraMovers[index] = cam.GetComponent<CameraControllerBase>();
         }
 
         SwitchTo(currentCamera);
@@ -59,53 +59,58 @@ public class CameraController : MonoBehaviour
         cameras[(int) camera].SetActive(true);
         currentCamera = camera;
         currentCameraComponent = cameraComponents[(int) camera];
-        currentCameraMover = cameras[(int) camera].GetComponent<CameraBase>();
+        currentCameraController = cameras[(int) camera].GetComponent<CameraControllerBase>();
 
     }
 
     public void MoveRight()
     {
-        currentCameraMover.MoveRight();
+        currentCameraController.MoveRight();
     }
 
     public void MoveLeft()
     {
-        currentCameraMover.MoveLeft();
+        currentCameraController.MoveLeft();
     }
 
     public void MoveForward()
     {
-        currentCameraMover.MoveForward();
+        currentCameraController.MoveForward();
     }
 
     public void MoveBackward()
     {
-        currentCameraMover.MoveBackward();
+        currentCameraController.MoveBackward();
     }
 
     public void MoveUp()
     {
-        currentCameraMover.MoveUp();
+        currentCameraController.MoveUp();
     }
 
     public void MoveDown()
     {
-        currentCameraMover.MoveDown();
+        currentCameraController.MoveDown();
     }
 
     public void RotateRight()
     {
-        currentCameraMover.RotateRight();
+        currentCameraController.RotateRight();
     }
 
     public void RotateLeft()
     {
-        currentCameraMover.RotateLeft();
+        currentCameraController.RotateLeft();
     }
 
     public void RotateWithMouse()
     {
-        currentCameraMover.RotateWithMouse();
+        currentCameraController.RotateWithMouse();
+    }
+
+    public void SendCameraToHome()
+    {
+        currentCameraController.SendCameraToHome();
     }
 
 }

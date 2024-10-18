@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
-    public CameraController CameraController;
+    public CameraManager CameraController;
 
     public Vector2 OldCursorPos = new Vector2();
 
@@ -50,6 +50,18 @@ public class PlayerController : MonoBehaviour
         {
             CameraController.MoveUp();
         }
+        
+        /*
+        if (Input.mouseScrollDelta.y > 0.1f) // Replace With Mouse Wheel
+        {
+            CameraController.MoveDown();
+        }
+
+        if (Input.mouseScrollDelta.y < -0.1f) // Replace With Mouse Wheel
+        {
+            CameraController.MoveUp();
+        }
+        */
 
         // Rotate Camera
         if (Input.GetKey("q"))
@@ -82,6 +94,11 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Mouse.current.WarpCursorPosition(OldCursorPos);
         }
+
+        if (Input.GetKey("mouse 2") && Input.GetKey("left shift"))
+        {
+            
+        }
         
         // Camera Switching
         if (Input.GetKeyDown("1"))
@@ -96,6 +113,13 @@ public class PlayerController : MonoBehaviour
         {
             CameraController.SwitchTo(cam.OrthographicCam);
         }
+
+        // Reset Camera Postion
+        if (Input.GetKeyDown("r"))
+        {
+            CameraController.SendCameraToHome();
+        }
+        
 
     }
 
