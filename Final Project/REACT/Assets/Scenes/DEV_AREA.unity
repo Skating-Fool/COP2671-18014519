@@ -268,7 +268,7 @@ MonoBehaviour:
   freeCamera: {fileID: 1456861278}
   topdownCamera: {fileID: 1343875562}
   orthographicCamera: {fileID: 1622190188}
-  currentCamera: 2
+  currentCamera: 0
 --- !u!1 &643938510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +1999,7 @@ MonoBehaviour:
   homeTransform: {fileID: 0}
   MinimumHeight: 2
   MaximumHeight: 20
+  sensitivity: 600
 --- !u!1 &1456861278
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &1622190189
 Camera:
   m_ObjectHideFlags: 0
