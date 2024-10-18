@@ -18,11 +18,11 @@ public class CameraController : MonoBehaviour
 
     private GameObject[] cameras = new GameObject[3];
     private Camera[] cameraComponents = new Camera[3];
-    private CameraMover[] currentCameraMovers = new CameraMover[3];
+    private CameraBase[] currentCameraMovers = new CameraBase[3];
 
     private Camera currentCameraComponent;
-    private CameraMover currentCameraMover;
-    private cam currentCamera = cam.FreeCam;
+    private CameraBase currentCameraMover;
+    [SerializeField] private cam currentCamera = cam.FreeCam;
 
     void Start()
     {
@@ -35,10 +35,10 @@ public class CameraController : MonoBehaviour
         foreach (var cam in cameras)
         {
             cameraComponents[index] = cam.GetComponent<Camera>();
-            currentCameraMovers[index] = cam.GetComponent<CameraMover>();
+            currentCameraMovers[index] = cam.GetComponent<CameraBase>();
         }
 
-        SwitchTo(cam.FreeCam);
+        SwitchTo(currentCamera);
 
     }
 
@@ -59,7 +59,7 @@ public class CameraController : MonoBehaviour
         cameras[(int) camera].SetActive(true);
         currentCamera = camera;
         currentCameraComponent = cameraComponents[(int) camera];
-        currentCameraMover = cameras[(int) camera].GetComponent<CameraMover>();
+        currentCameraMover = cameras[(int) camera].GetComponent<CameraBase>();
 
     }
 

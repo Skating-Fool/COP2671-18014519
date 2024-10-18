@@ -472,6 +472,7 @@ MonoBehaviour:
   freeCamera: {fileID: 1456861278}
   topdownCamera: {fileID: 1343875562}
   orthographicCamera: {fileID: 1622190188}
+  currentCamera: 1
 --- !u!1 &643938510
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +732,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1622190190}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -793,11 +794,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1343875562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa1db6363b78c9b4f84cdd4057f68170, type: 3}
+  m_Script: {fileID: 11500000, guid: e507b85d3c6956441a2ce4f7db930bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rotationSpeed: 10
+  rotationSpeed: 100
+  MinimumHight: 2
+  MaximumHight: 20
 --- !u!1 &1456861278
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,7 +952,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1622190190}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -1015,7 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rotationSpeed: 10
+  rotationSpeed: 100
 --- !u!43 &1759948119
 Mesh:
   m_ObjectHideFlags: 0

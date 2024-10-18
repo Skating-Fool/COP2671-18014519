@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreeCamera : CameraMover
+public class FreeCamera : CameraBase
 {
 
     [SerializeField] private Transform XAxis;
@@ -35,6 +35,46 @@ public class FreeCamera : CameraMover
         XAxis.localRotation = Quaternion.Euler(new Vector3(xRotation, 0, 0));
         YAxis.Rotate(new Vector3(0, mouseX, 0));
         //transform.Rotate(rotationSpeed * Time.deltaTime * new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0));
+    }
+
+    public override void MoveRight()
+    {
+        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+    }
+
+    public override void MoveLeft()
+    {
+        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+    }
+
+    public override void MoveForward()
+    {
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+    }
+
+    public override void MoveBackward()
+    {
+        transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+    }
+
+    public override void MoveUp()
+    {
+        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+    }
+
+    public override void MoveDown()
+    {
+        transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+    }
+
+    public override void RotateRight()
+    {
+        transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+    }
+
+    public override void RotateLeft()
+    {
+        transform.Rotate(0f, -(rotationSpeed * Time.deltaTime), 0f);
     }
 
 }

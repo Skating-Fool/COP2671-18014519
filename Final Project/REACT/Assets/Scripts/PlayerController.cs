@@ -82,7 +82,8 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Mouse.current.WarpCursorPosition(OldCursorPos);
         }
-
+        
+        // Camera Switching
         if (Input.GetKeyDown("1"))
         {
             CameraController.SwitchTo(cam.FreeCam);
