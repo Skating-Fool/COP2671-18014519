@@ -13,7 +13,8 @@ Key Binds:
 - E : Rotate Right
 - SPACE : Fly Up
 - LEFT SHIFT : Fly Down
-- RIGHT MOUSE : Rotate Camera
+- MOUSE 1 : Select (WIP)
+- MOUSE 2 : Alt Select (WIP), Rotate Camera
 - NUMBER 1 : Switch To Free Camera
 - NUMBER 2 : Switch To Top Down Camera
 - NUMBER 3 : Switch To Orthographic Camera

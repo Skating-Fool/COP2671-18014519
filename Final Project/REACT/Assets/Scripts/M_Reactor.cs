@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Machine_Reactor : MachineBase
 {
-
+    // TODO: Add Health
+    // TODO: Make Power Manager
     public int EUPerTick = 5;
     public float DelayBetweenTicks = 1f;
 
@@ -15,6 +16,7 @@ public class Machine_Reactor : MachineBase
 
         base.Start();
 
+        // TODO: Replace with coroutine
         InvokeRepeating(nameof(GeneratePower), 0f, DelayBetweenTicks);
         
     }
