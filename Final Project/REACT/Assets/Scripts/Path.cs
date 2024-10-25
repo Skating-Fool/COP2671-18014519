@@ -12,6 +12,8 @@ public class Path : MonoBehaviour
 
     public bool debugLines = false;
 
+    public bool loop = false;
+
     public Transform[] points;
 
     void Start()
@@ -24,23 +26,38 @@ public class Path : MonoBehaviour
 
         if (Application.isEditor && !Application.isPlaying)
         {
-            // Runs In Editor
+            // Runs Only In Editor
 
-            debugLineRenderer.enabled = debugLines;
 
         }
-        else
+        else if (Application.isPlaying)
         {
-            // Runs In Playmode
+            // Runs Only In Playmode
+
         }
 
         // Runs in Both
+        debugLineRenderer.enabled = debugLines;
+        debugLineRenderer.loop = loop;
 
+        if (debugLines)
+        {
+            updatePoints();
+        }
+
+    }
+
+    public void updatePoints()
+    {
+
+        debugLineRenderer.positionCount = points.Length;
         List<Vector3> pointPositions = new List<Vector3>();
+
         foreach (Transform t in points)
         {
             pointPositions.Add(t.position);
         }
+
         debugLineRenderer.SetPositions(pointPositions.ToArray());
 
     }
