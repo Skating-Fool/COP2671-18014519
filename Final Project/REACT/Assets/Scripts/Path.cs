@@ -42,12 +42,12 @@ public class Path : MonoBehaviour
 
         if (debugLines)
         {
-            updatePoints();
+            UpdatePoints();
         }
 
     }
 
-    public void updatePoints()
+    public void UpdatePoints()
     {
 
         debugLineRenderer.positionCount = points.Length;

@@ -60,4 +60,13 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void OnSelectEvent(GameObject gameObject, int mouseClickNum)
+    {
+        Debug.Log("Select Event");
+        if (transform.gameObject.Equals(gameObject))
+        {
+            Debug.Log("Click Event Not Implemented Yet");
+        }
+    }
+
 }

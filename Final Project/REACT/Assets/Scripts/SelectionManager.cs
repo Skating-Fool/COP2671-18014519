@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Selectable : MonoBehaviour
+public class SelectionManager : MonoBehaviour
 {
 
     public static UnityEvent<GameObject, int> OnSelect;
@@ -16,15 +16,13 @@ public class Selectable : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse1))
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("M1");
             Select(1);
         }
-
-        if (Input.GetKey(KeyCode.Mouse2))
+        else if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("M2");
             Select(2);
         }
 
