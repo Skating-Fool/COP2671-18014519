@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public CameraManager CameraController;
 
-    public Vector2 OldCursorPos = new Vector2();
+    private Vector2 OldCursorPos = new Vector2();
 
     void Start()
     {
@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour
         {
             CameraController.SendCameraToHome();
         }
-        
 
     }
 
