@@ -8,8 +8,6 @@ public class CameraControllerBase : MonoBehaviour
     public float moveSpeed = 10f;
     public float rotationSpeed = 100f;
 
-    public Transform homeTransform;
-
     protected Vector3 homePosition;
     protected Quaternion defaultRotation;
 
@@ -21,16 +19,10 @@ public class CameraControllerBase : MonoBehaviour
 
     public virtual void SetHome()
     {
-        if (homeTransform == null)
-        {
-            homePosition = transform.position;
-            defaultRotation = transform.rotation;
-        }
-        else
-        {
-            homePosition = homeTransform.position;
-            defaultRotation = homeTransform.rotation;
-        }
+
+        homePosition = transform.position;
+        defaultRotation = transform.rotation;
+        
     }
 
     public virtual void MoveRight() { }

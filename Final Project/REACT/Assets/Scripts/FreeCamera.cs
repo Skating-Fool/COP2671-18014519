@@ -12,6 +12,9 @@ public class FreeCamera : CameraControllerBase
 
     private float xRotation;
 
+    protected Vector3 XAxisHomePosition;
+    protected Quaternion XAxisDefaultRot;
+
     protected float xHomeRotation;
     protected float yHomeRotation;
 
@@ -28,34 +31,25 @@ public class FreeCamera : CameraControllerBase
 
     public override void SetHome()
     {
-        if (homeTransform == null)
-        {
-            homePosition = transform.position;
-            defaultRotation = transform.rotation;
 
-            xHomeRotation = XAxis.rotation.x;
-            yHomeRotation = YAxis.rotation.y;
-        }
-        else
-        {
-            homePosition = homeTransform.position;
-            defaultRotation = homeTransform.rotation;
+        XAxisHomePosition = XAxis.position;
+        homePosition = YAxis.position;
 
-            xHomeRotation = XAxis.rotation.x;
-            yHomeRotation = YAxis.rotation.y;
-        }
+        XAxisDefaultRot = XAxis.rotation;
+        defaultRotation = YAxis.rotation;
+
+        xRotation = XAxis.rotation.x * 180; // For Mouse Rotation, so it doesn't snap to 0
+        Debug.Log(xRotation);
     }
 
     public override void SendCameraToHome()
     {
-        XAxis.localPosition = homePosition;
-        YAxis.position = homePosition;
 
-        XAxis.localRotation = Quaternion.Euler(new Vector3(xHomeRotation, 0, 0));
-        YAxis.rotation = Quaternion.Euler(0, xHomeRotation, 0);
+        YAxis.SetPositionAndRotation(homePosition, defaultRotation);
+        XAxis.SetPositionAndRotation(XAxisHomePosition, XAxisDefaultRot);
 
-        xRotation = YAxis.rotation.x; // So that rotating with the mouse doesn't snap to pre reset angle
-
+        xRotation = XAxis.rotation.x * 180; // So that rotating with the mouse doesn't snap to pre reset angle
+        Debug.Log($"{xRotation}");
     }
 
     public override void RotateWithMouse()
@@ -63,7 +57,7 @@ public class FreeCamera : CameraControllerBase
 
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-
+        Debug.Log(mouseY);
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
 
