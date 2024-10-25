@@ -8,13 +8,24 @@ public class Enemy : MonoBehaviour
     public Path path;
     public float speed = 5;
     public float health = 100;
+    public float maxHealth = 100;
 
     public int targetIndex = 0;
     public Vector3 targetPos;
 
+    public Color healthColor;
+
+    private Renderer meshRenderer;
+
+    public float cycleSpeed = 0.01f;
+    private float i = 0;
+
     void Start()
     {
+        meshRenderer = GetComponent<Renderer>();
         targetPos = path.points[targetIndex].position;
+
+        
     }
 
     // Update is called once per frame
@@ -26,7 +37,7 @@ public class Enemy : MonoBehaviour
 
         if (Vector3.Distance(transform.position, targetPos) < 0.001f)
         {
-            Debug.Log(targetIndex);
+
             if (path.loop)
             {
                 targetIndex += 1;
@@ -40,6 +51,12 @@ public class Enemy : MonoBehaviour
             }
 
         }
+        i += cycleSpeed;
+        health = (Mathf.Sin(i) * (maxHealth/2)) + (maxHealth / 2);
+        healthColor.r = 255 - (health / maxHealth * 255);
+        healthColor.g = health / maxHealth * 255;
+        meshRenderer.material.SetColor("_Color", healthColor);
+
 
     }
 
