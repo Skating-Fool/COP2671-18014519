@@ -9,9 +9,17 @@ public class SelectionManager : MonoBehaviour
 
     public static UnityEvent<GameObject, int> OnSelect;
 
+    private void Awake()
+    {
+        if (OnSelect == null)
+        {
+            OnSelect = new UnityEvent<GameObject, int>();
+        }
+    }
+
     void Start()
     {
-        OnSelect ??= new UnityEvent<GameObject, int>();
+        
     }
 
     void Update()
@@ -34,7 +42,7 @@ public class SelectionManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default")))
         {
-            Debug.Log($"Hit: {hit.transform.gameObject}");
+            //Debug.Log($"Hit: {hit.transform.gameObject}");
             OnSelect.Invoke(hit.transform.gameObject, mouseNum);
         }
     }

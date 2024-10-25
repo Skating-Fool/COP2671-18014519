@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 683528889}
   - component: {fileID: 683528888}
   m_Layer: 0
-  m_Name: Event Manager
+  m_Name: SelectionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4256,7 +4256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerLevel: 0
-  maxPowerLevel: 100
+  maxPowerLevel: 1000
   EUPerTick: 5
   DelayBetweenTicks: 1
   running: 1

@@ -22,10 +22,9 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        SelectionManager.OnSelect.AddListener(OnSelectEvent);
         meshRenderer = GetComponent<Renderer>();
         targetPos = path.points[targetIndex].position;
-
-        
     }
 
     // Update is called once per frame
@@ -62,7 +61,6 @@ public class Enemy : MonoBehaviour
 
     void OnSelectEvent(GameObject gameObject, int mouseClickNum)
     {
-        Debug.Log("Select Event");
         if (transform.gameObject.Equals(gameObject))
         {
             Debug.Log("Click Event Not Implemented Yet");

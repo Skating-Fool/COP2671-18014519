@@ -2,58 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Machine_Reactor : MachineBase 
+public class Machine_Reactor : MachineBase
 {
 
     public int EUPerTick = 5;
-    public float DelayBetweenTicks = 1;
+    public float DelayBetweenTicks = 1f;
 
     public bool running = true;
 
-    void Start()
+    public override void Start()
     {
-        print(SelectionManager.OnSelect);
 
-        SelectionManager.OnSelect.AddListener(OnSelectEvent);
-        powerLevel = 1000;
-        maxPowerLevel = 1000;
+        base.Start();
+
+        InvokeRepeating(nameof(GeneratePower), 0f, DelayBetweenTicks);
+        
     }
 
     void Update()
     {
 
-        if (running)
-        {
-            StartCoroutine(GeneratePower());
-        }
 
     }
 
-    public void OnSelectEvent(GameObject gameObject, int mouseClickNum)
-    {
-        if (transform.gameObject.Equals(gameObject))
-        {
-            Debug.Log("Click Event Not Implemented Yet");
-        }
-    }
-
-    private IEnumerator GeneratePower()
+    private void GeneratePower()
     {
         
-        if (powerLevel < 1000)
+        if (powerLevel < 1000 && running)
         {
             powerLevel += EUPerTick;
             if (powerLevel > 1000)
             {
                 powerLevel = maxPowerLevel;
             }
-            new WaitForSeconds(DelayBetweenTicks);
-            yield return null;
         }
-        else
-        {
-            new WaitForSeconds(DelayBetweenTicks);
-        }
+
     }
 
 }
