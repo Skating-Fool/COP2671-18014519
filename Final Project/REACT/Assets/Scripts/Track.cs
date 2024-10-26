@@ -87,8 +87,11 @@ public class Track : MonoBehaviour
             }
             else if (points.Count >= 2)
             {
-                newPoint.transform.LookAt(points[points.Count - 2].position);
-                newPoint.transform.Rotate(new Vector3(0, newPoint.transform.rotation.y + 180, 0));
+                newPoint.transform.position = points[points.Count - 2].position;
+                newPoint.transform.LookAt(points[points.Count - 1].position);
+                newPoint.transform.position = points[points.Count - 1].position;
+                //newPoint.transform.Rotate(new Vector3(0, newPoint.transform.rotation.y + 180, 0));
+                //newPoint.transform.rotation = Quaternion.Inverse(newPoint.transform.rotation);
                 newPoint.transform.position += newPoint.transform.forward;
             }
 
