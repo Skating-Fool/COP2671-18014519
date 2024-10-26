@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    public Path path;
+    public Track path;
     public float speed = 5;
     public float health = 100;
     public float maxHealth = 100;
@@ -40,10 +40,10 @@ public class Enemy : MonoBehaviour
             if (path.loop)
             {
                 targetIndex += 1;
-                targetIndex = targetIndex % path.points.Length;
+                targetIndex = targetIndex % path.points.Count;
                 targetPos = path.points[targetIndex].position;
             }
-            else if(targetIndex < path.points.Length - 1)
+            else if(targetIndex < path.points.Count - 1)
             {
                 targetIndex += 1;
                 targetPos = path.points[targetIndex].position;
