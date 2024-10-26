@@ -51,21 +51,60 @@ public class Track : MonoBehaviour
 
     }
 
+    public GameObject getNextPoint(int ID)
+    {
+        if ((ID + 1) < points.Count)
+        {
+            return points[ID + 1].gameObject;
+        }
+        else if (loop)
+        {
+            return points[0].gameObject;
+        }
+
+        return points[ID].gameObject;
+        
+    }
+
     public void UpdatePoints()
     {
 
-        
         List<Vector3> pointPositions = new List<Vector3>();
-
+        int id = 0;
         foreach (Transform t in points)
         {
+
             if (t != null)
             {
+                TrackPointData trackPointData = t.GetComponent<TrackPointData>();
+
+                if (trackPointData == null)
+                {
+                    t.AddComponent<TrackPointData>();
+                }
+
+                if (trackPointData.trackController == null)
+                {
+                    trackPointData.trackController = this;
+                }
+
+                if (trackPointData.trackController.gameObject.Equals(gameObject))
+                {
+                    trackPointData.ID = id;
+                    id++;
+                }
+
                 pointPositions.Add(t.position);
+                
             }
+
         }
-        debugLineRenderer.positionCount = pointPositions.Count;
-        debugLineRenderer.SetPositions(pointPositions.ToArray());
+
+        if (showTrackLine)
+        {
+            debugLineRenderer.positionCount = pointPositions.Count;
+            debugLineRenderer.SetPositions(pointPositions.ToArray());
+        }
 
     }
 
@@ -90,8 +129,6 @@ public class Track : MonoBehaviour
                 newPoint.transform.position = points[points.Count - 2].position;
                 newPoint.transform.LookAt(points[points.Count - 1].position);
                 newPoint.transform.position = points[points.Count - 1].position;
-                //newPoint.transform.Rotate(new Vector3(0, newPoint.transform.rotation.y + 180, 0));
-                //newPoint.transform.rotation = Quaternion.Inverse(newPoint.transform.rotation);
                 newPoint.transform.position += newPoint.transform.forward;
             }
 
@@ -105,28 +142,36 @@ public class Track : MonoBehaviour
         newPoint.name = $"Point {points.Count}";
         points.Add(newPoint.transform);
 
+        UpdatePoints();
+
     }
 
     public void RemoveLast()
     {
+        DestroyImmediate(points[points.Count - 1].gameObject.GetComponent<TrackPointData>());
         points.RemoveAt(points.Count - 1);
+        UpdatePoints();
     }
 
     public void RemoveFirst()
     {
+        DestroyImmediate(points[0].gameObject.GetComponent<TrackPointData>());
         points.RemoveAt(0);
+        UpdatePoints();
     }
 
     public void DeleteLast()
     {
         DestroyImmediate(points[points.Count - 1].gameObject);
         points.RemoveAt(points.Count - 1);
+        UpdatePoints();
     }
 
     public void DeleteFirst()
     {
         DestroyImmediate(points[0].gameObject);
         points.RemoveAt(0);
+        UpdatePoints();
     }
 
 }

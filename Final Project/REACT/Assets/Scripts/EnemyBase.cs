@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
 
-    public Track path;
+    public Track track;
     public float speed = 5;
     public float health = 100;
     public float maxHealth = 100;
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         SelectionManager.OnSelect.AddListener(OnSelectEvent);
         meshRenderer = GetComponent<Renderer>();
-        targetPos = path.points[targetIndex].position;
+        targetPos = track.points[targetIndex].position;
     }
 
     // Update is called once per frame
@@ -37,25 +38,40 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, targetPos) < 0.001f)
         {
 
+            if (targetIndex < track.points.Count)
+            {
+                GameObject nextPoint = track.getNextPoint(targetIndex);
+                TrackPointData trackPointData = nextPoint.GetComponent<TrackPointData>();
+                
+                track = trackPointData.trackController;
+                targetIndex = trackPointData.ID;
+                targetPos = track.points[targetIndex].position;
+            }
+            /*
             if (path.loop)
             {
                 targetIndex += 1;
+                TrackPointData trackPointData = path.points[targetIndex].GetComponent<TrackPointData>();
+                path = trackPointData.trackScript;
+                targetIndex = trackPointData.ID;
                 targetIndex = targetIndex % path.points.Count;
                 targetPos = path.points[targetIndex].position;
             }
             else if(targetIndex < path.points.Count - 1)
             {
                 targetIndex += 1;
+                TrackPointData trackPointData = path.points[targetIndex].GetComponent<TrackPointData>();
+                path = trackPointData.trackScript;
+                targetIndex = trackPointData.ID;
                 targetPos = path.points[targetIndex].position;
             }
-
+            */
         }
         i += cycleSpeed;
         health = (Mathf.Sin(i) * (maxHealth/2)) + (maxHealth / 2);
         healthColor.r = 255 - (health / maxHealth * 255);
         healthColor.g = health / maxHealth * 255;
         meshRenderer.material.SetColor("_Color", healthColor);
-
 
     }
 
