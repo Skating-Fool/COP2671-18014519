@@ -14,9 +14,6 @@ public class Enemy : MonoBehaviour
 
     private Renderer meshRenderer;
 
-    public float cycleSpeed = 0.01f;
-    private float i = 0;
-
     void Start()
     {
         SelectionManager.OnSelect.AddListener(OnSelectEvent);
@@ -26,11 +23,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        i += cycleSpeed;
-        health = (Mathf.Sin(i) * (maxHealth/2)) + (maxHealth / 2);
-        //healthColor.r = 255 - (health / maxHealth * 255);
-        //healthColor.g = health / maxHealth * 255;
 
         healthColor = healthGradient.Evaluate(health / maxHealth);
 

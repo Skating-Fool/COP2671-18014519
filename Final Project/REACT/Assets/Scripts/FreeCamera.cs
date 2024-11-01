@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class FreeCamera : CameraControllerBase
 {
@@ -55,14 +56,30 @@ public class FreeCamera : CameraControllerBase
 
     public override void RotateWithMouse()
     {
-        xRotation = XAxis.rotation.eulerAngles.x;
+
+        // Quaternion can only store 0 -> 360
+        // So anything above or below wraps around
+
+        xRotation = XAxis.localRotation.eulerAngles.x;
+
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
 
-        XAxis.localRotation = Quaternion.Euler(new Vector3(xRotation, 0, 0));
+        if (xRotation > 90 && xRotation < 135)
+        {
+            xRotation = 90;
+        }
+
+        if (xRotation < 270 && xRotation > 135)
+        {
+            xRotation = 270;
+        }
+
+        //xRotation = Mathf.Clamp(xRotation - 90, -90.0f, 90.0f);
+
+        XAxis.localRotation = Quaternion.Euler(new Vector3(xRotation, 0, 0)); 
         YAxis.Rotate(new Vector3(0, mouseX, 0));
 
     }

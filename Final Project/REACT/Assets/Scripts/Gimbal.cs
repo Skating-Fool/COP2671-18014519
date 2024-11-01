@@ -22,10 +22,11 @@ public class Gimbal : MonoBehaviour
     public Transform puppet;
     public Transform pointer;
 
-    public float yawSpeed = 8.0f;
+    public float yawSpeed = 5.0f;
     public float pitchSpeed = 8.0f;
 
     public Transform target;
+    public Transform defaultTarget;
 
     private float yaw;
     private float pitch;
@@ -36,19 +37,20 @@ public class Gimbal : MonoBehaviour
         set
         {
             yaw = value;
-            Vector3 oldRot = yawTransform.rotation.eulerAngles;
-            yawTransform.localRotation = Quaternion.Euler(0, yaw, 0);
+            yawTransform.rotation = Quaternion.Euler(0, yaw, 0);
         }
+
     }
+
     public float Pitch
     {
         get { return pitch; }
         set
         {
             pitch = value;
-            Vector3 oldRot = yawTransform.rotation.eulerAngles;
             pitchTransform.localRotation = Quaternion.Euler(pitch, 0, 0);
         }
+
     }
 
     void Start()
@@ -58,52 +60,65 @@ public class Gimbal : MonoBehaviour
 
     void Update()
     {
-        
-        if (TestMode)
+
+        // If no target, use default target
+        if (defaultTarget != null && target == null)
         {
-            float x = MathF.Sin(Time.time) * TestModeLimits.x;
-            float y = MathF.Sin(Time.time * 3.1425f) * TestModeLimits.y;
-            float z = MathF.Cos(Time.time) * TestModeLimits.z;
-            target.position = transform.position + new Vector3(x, y, z);
-        }
-
-
-        pointer.LookAt(target);
-
-        if (!instantSnap)
-        {
-            //find the vector pointing from our position to the target
-            Vector3 direction = (target.position - puppet.position).normalized;
-
-            //create the rotation we need to be in to look at the target
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-
-
-            //puppet.rotation = Quaternion.Slerp(puppet.rotation, lookRotation, Time.deltaTime * yawSpeed);
-            float newYaw = Mathf.LerpAngle
-            (
-                puppet.rotation.eulerAngles.y,
-                lookRotation.eulerAngles.y,
-                Time.deltaTime * yawSpeed
-            );
-
-            float newPitch = Mathf.LerpAngle
-            (
-                puppet.rotation.eulerAngles.x,
-                lookRotation.eulerAngles.x,
-                Time.deltaTime * pitchSpeed
-            );
-
-            puppet.rotation = Quaternion.Euler(newPitch, newYaw, 0);
-            Yaw = puppet.rotation.eulerAngles.y;
-            Pitch = puppet.rotation.eulerAngles.x;
+            target = defaultTarget;
         }
         else
         {
-            puppet.rotation = pointer.rotation;
-            Yaw = puppet.rotation.eulerAngles.y;
-            Pitch = puppet.rotation.eulerAngles.x;
+            //Debug.LogWarning("No default target Set");
+        }
+
+        if (target != null)
+        {
+
+            if (TestMode) // Spin in circle occilating up and down by limit variable
+            {
+                float x = MathF.Sin(Time.time) * TestModeLimits.x;
+                float y = MathF.Sin(Time.time * 3.1425f) * TestModeLimits.y;
+                float z = MathF.Cos(Time.time) * TestModeLimits.z;
+                target.position = transform.position + new Vector3(x, y, z);
+            }
+
+            pointer.LookAt(target);
+
+            if (!instantSnap)
+            {
+
+                Vector3 direction = (target.position - puppet.position).normalized;
+
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+                //puppet.rotation = Quaternion.Slerp(puppet.rotation, lookRotation, Time.deltaTime * yawSpeed);
+                float newYaw = Mathf.LerpAngle
+                (
+                    puppet.rotation.eulerAngles.y,
+                    lookRotation.eulerAngles.y,
+                    Time.deltaTime * yawSpeed
+                );
+
+                float newPitch = Mathf.LerpAngle
+                (
+                    puppet.rotation.eulerAngles.x,
+                    lookRotation.eulerAngles.x,
+                    Time.deltaTime * pitchSpeed
+                );
+
+                puppet.rotation = Quaternion.Euler(newPitch, newYaw, 0);
+                Yaw = puppet.rotation.eulerAngles.y;
+                Pitch = puppet.localRotation.eulerAngles.x;
+            }
+            else
+            {
+                puppet.rotation = pointer.rotation;
+                Yaw = puppet.rotation.eulerAngles.y;
+                Pitch = puppet.localRotation.eulerAngles.x;
+            }
+
         }
 
     }
+
 }
