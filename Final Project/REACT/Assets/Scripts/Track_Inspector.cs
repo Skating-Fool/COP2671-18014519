@@ -55,26 +55,32 @@ public class Track_Inspector : Editor
 
     private void CreateNewPoint(ClickEvent evt)
     {
-        track.CreateNewPoint();
+        GameObject newPoint = track.CreateNewPoint();
+        Selection.activeGameObject = newPoint;
+        //SceneView.FrameLastActiveSceneView();
     }
 
     private void RemoveLast(ClickEvent evt)
     {
+        //Selection.activeGameObject = track.points[^2].gameObject;
         track.RemoveLast();
     }
 
     private void RemoveFirst(ClickEvent evt)
     {
+        //Selection.activeGameObject = track.points[1].gameObject;
         track.RemoveFirst();
     }
 
     private void DeleteLast(ClickEvent evt)
     {
+        //Selection.activeGameObject = track.points[^2].gameObject;
         track.DeleteLast();
     }
 
     private void DeleteFirst(ClickEvent evt)
     {
+        //Selection.activeGameObject = track.points[1].gameObject;
         track.DeleteFirst();
     }
 

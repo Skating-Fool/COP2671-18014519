@@ -108,7 +108,7 @@ public class Track : MonoBehaviour
 
     }
 
-    public void CreateNewPoint()
+    public GameObject CreateNewPoint()
     {
 
         GameObject newPoint;
@@ -143,12 +143,12 @@ public class Track : MonoBehaviour
         points.Add(newPoint.transform);
 
         UpdatePoints();
-
+        return newPoint;
     }
 
     public void RemoveLast()
     {
-        DestroyImmediate(points[points.Count - 1].gameObject.GetComponent<TrackPointData>());
+        DestroyImmediate(points[^1].gameObject.GetComponent<TrackPointData>());
         points.RemoveAt(points.Count - 1);
         UpdatePoints();
     }
@@ -162,7 +162,7 @@ public class Track : MonoBehaviour
 
     public void DeleteLast()
     {
-        DestroyImmediate(points[points.Count - 1].gameObject);
+        DestroyImmediate(points[^1].gameObject);
         points.RemoveAt(points.Count - 1);
         UpdatePoints();
     }
@@ -172,6 +172,16 @@ public class Track : MonoBehaviour
         DestroyImmediate(points[0].gameObject);
         points.RemoveAt(0);
         UpdatePoints();
+    }
+
+    public GameObject GetFirst()
+    {
+        return points[0].gameObject;
+    }
+
+    public GameObject GetLast()
+    {
+        return points[^1].gameObject;
     }
 
 }

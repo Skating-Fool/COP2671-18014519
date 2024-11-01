@@ -50,6 +50,10 @@ public class TrackTrain : MonoBehaviour
             {
                 _targetIndex = _track.points.Count - 1;
             }
+            else if (_targetIndex < 0)
+            {
+                _targetIndex = 0;
+            }
         }
     }
 
@@ -72,7 +76,6 @@ public class TrackTrain : MonoBehaviour
 
             if (Vector3.Distance(transform.position, targetPos) < 0.001f)
             {
-
                 if (targetIndex < Track.points.Count)
                 {
                     GameObject nextPoint = Track.getNextPoint(targetIndex);
@@ -82,25 +85,6 @@ public class TrackTrain : MonoBehaviour
                     targetIndex = trackPointData.ID;
                     targetPos = Track.points[targetIndex].position;
                 }
-                /*
-                if (path.loop)
-                {
-                    targetIndex += 1;
-                    TrackPointData trackPointData = path.points[targetIndex].GetComponent<TrackPointData>();
-                    path = trackPointData.trackScript;
-                    targetIndex = trackPointData.ID;
-                    targetIndex = targetIndex % path.points.Count;
-                    targetPos = path.points[targetIndex].position;
-                }
-                else if(targetIndex < path.points.Count - 1)
-                {
-                    targetIndex += 1;
-                    TrackPointData trackPointData = path.points[targetIndex].GetComponent<TrackPointData>();
-                    path = trackPointData.trackScript;
-                    targetIndex = trackPointData.ID;
-                    targetPos = path.points[targetIndex].position;
-                }
-                */
             }
         }
     }
