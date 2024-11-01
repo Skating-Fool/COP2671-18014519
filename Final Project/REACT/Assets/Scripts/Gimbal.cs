@@ -1,24 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Gimbal : MonoBehaviour
 {
 
+    // Doesn't like being rotated
+    // Keep upright
+
+    public bool instantSnap = false;
+    
     public bool TestMode = false;
+    public Vector3 TestModeLimits = new Vector3(10, 10, 10);
 
     public Transform yawTransform;
     public Transform pitchTransform;
+
+    public Transform puppet;
     public Transform pointer;
 
-    public float yawSpeed = 0.0001f;
-    public float pitchSpeed = 0.0001f;
+    public float yawSpeed = 8.0f;
+    public float pitchSpeed = 8.0f;
 
     public Transform target;
 
-    [SerializeField] private float yaw;
-    [SerializeField] private float pitch;
+    private float yaw;
+    private float pitch;
 
     public float Yaw
     {
@@ -27,7 +37,7 @@ public class Gimbal : MonoBehaviour
         {
             yaw = value;
             Vector3 oldRot = yawTransform.rotation.eulerAngles;
-            //yawTransform.localRotation = Quaternion.Euler(oldRot.x, yaw, oldRot.z);
+            yawTransform.localRotation = Quaternion.Euler(0, yaw, 0);
         }
     }
     public float Pitch
@@ -37,38 +47,62 @@ public class Gimbal : MonoBehaviour
         {
             pitch = value;
             Vector3 oldRot = yawTransform.rotation.eulerAngles;
-            //pitchTransform.localRotation = Quaternion.Euler(pitch, 0, 0);
+            pitchTransform.localRotation = Quaternion.Euler(pitch, 0, 0);
         }
     }
-
-
 
     void Start()
     {
         
     }
-    private float timeCount = 0.0f;
-    // Update is called once per frame
+
     void Update()
     {
         
         if (TestMode)
         {
+            float x = MathF.Sin(Time.time) * TestModeLimits.x;
+            float y = MathF.Sin(Time.time * 3.1425f) * TestModeLimits.y;
+            float z = MathF.Cos(Time.time) * TestModeLimits.z;
+            target.position = transform.position + new Vector3(x, y, z);
+        }
 
-            //Yaw = Mathf.Sin(Time.timeSinceLevelLoad) * 180.0f;
-            //Pitch = Mathf.Cos(Time.timeSinceLevelLoad) * 180.0f;
 
-            pointer.LookAt(target);
-            Yaw = pointer.rotation.y * 180;
-            Pitch = pointer.rotation.x * 180;
+        pointer.LookAt(target);
 
-            yawTransform.rotation = 
-                Quaternion.Lerp(yawTransform.rotation, Quaternion.Euler(0, Yaw, 0), Time.deltaTime * yawSpeed);
-            
-            pitchTransform.localRotation = 
-                Quaternion.Lerp(pitchTransform.rotation, Quaternion.Euler(Pitch, 0, 0), Time.deltaTime * pitchSpeed);
+        if (!instantSnap)
+        {
+            //find the vector pointing from our position to the target
+            Vector3 direction = (target.position - puppet.position).normalized;
 
-            timeCount = timeCount + Time.deltaTime;
+            //create the rotation we need to be in to look at the target
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+
+            //puppet.rotation = Quaternion.Slerp(puppet.rotation, lookRotation, Time.deltaTime * yawSpeed);
+            float newYaw = Mathf.LerpAngle
+            (
+                puppet.rotation.eulerAngles.y,
+                lookRotation.eulerAngles.y,
+                Time.deltaTime * yawSpeed
+            );
+
+            float newPitch = Mathf.LerpAngle
+            (
+                puppet.rotation.eulerAngles.x,
+                lookRotation.eulerAngles.x,
+                Time.deltaTime * pitchSpeed
+            );
+
+            puppet.rotation = Quaternion.Euler(newPitch, newYaw, 0);
+            Yaw = puppet.rotation.eulerAngles.y;
+            Pitch = puppet.rotation.eulerAngles.x;
+        }
+        else
+        {
+            puppet.rotation = pointer.rotation;
+            Yaw = puppet.rotation.eulerAngles.y;
+            Pitch = puppet.rotation.eulerAngles.x;
         }
 
     }

@@ -21,6 +21,7 @@ public class FreeCamera : CameraControllerBase
     void Start()
     {
         SetHome();
+
     }
 
     // Update is called once per frame
@@ -38,8 +39,8 @@ public class FreeCamera : CameraControllerBase
         XAxisDefaultRot = XAxis.rotation;
         defaultRotation = YAxis.rotation;
 
-        xRotation = XAxis.rotation.x * 180; // For Mouse Rotation, so it doesn't snap to 0
-        //Debug.Log(xRotation);
+        //xRotation = XAxis.rotation.eulerAngles.x; // For Mouse Rotation, so it doesn't snap to 0
+
     }
 
     public override void SendCameraToHome()
@@ -48,16 +49,16 @@ public class FreeCamera : CameraControllerBase
         YAxis.SetPositionAndRotation(homePosition, defaultRotation);
         XAxis.SetPositionAndRotation(XAxisHomePosition, XAxisDefaultRot);
 
-        xRotation = XAxis.rotation.x * 180; // So that rotating with the mouse doesn't snap to pre reset angle
-        //Debug.Log($"{xRotation}");
+        //xRotation = XAxis.rotation.eulerAngles.x; // So that rotating with the mouse doesn't snap to pre reset angle
+
     }
 
     public override void RotateWithMouse()
     {
-
+        xRotation = XAxis.rotation.eulerAngles.x;
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        //Debug.Log(mouseY);
+
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
 

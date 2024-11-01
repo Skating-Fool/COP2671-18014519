@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public float health = 100;
     public float maxHealth = 100;
 
+    public Gradient healthGradient = new Gradient();
     public Color healthColor;
 
     private Renderer meshRenderer;
@@ -28,8 +29,11 @@ public class Enemy : MonoBehaviour
         
         i += cycleSpeed;
         health = (Mathf.Sin(i) * (maxHealth/2)) + (maxHealth / 2);
-        healthColor.r = 255 - (health / maxHealth * 255);
-        healthColor.g = health / maxHealth * 255;
+        //healthColor.r = 255 - (health / maxHealth * 255);
+        //healthColor.g = health / maxHealth * 255;
+
+        healthColor = healthGradient.Evaluate(health / maxHealth);
+
         meshRenderer.material.SetColor("_Color", healthColor);
 
     }
