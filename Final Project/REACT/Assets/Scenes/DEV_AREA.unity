@@ -3526,10 +3526,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619297752755eb74a89ea0a60ca75054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveActive: 0
   wave: 0
   waveTime: 0
   waveScale: 0
-  keyWaves: 
+  keyWaveInterval: 0
+  startingDifficulty: 0
+  difficulty: 0
   spawners: []
 --- !u!1 &962894664
 GameObject:
@@ -7450,10 +7453,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619297752755eb74a89ea0a60ca75054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wave: 0
+  waveActive: 0
+  wave: 1
   waveTime: 30
   waveScale: 1
-  keyWaves: 
+  keyWaveInterval: 5
+  startingDifficulty: 1
+  difficulty: 1
   spawners:
   - {fileID: 1420566276}
   - {fileID: 628676238}
