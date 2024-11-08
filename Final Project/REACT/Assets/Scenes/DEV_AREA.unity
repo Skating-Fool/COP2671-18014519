@@ -3526,8 +3526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619297752755eb74a89ea0a60ca75054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wave: 0
   waveTime: 0
   waveScale: 0
+  keyWaves: 
   spawners: []
 --- !u!1 &962894664
 GameObject:
@@ -4335,6 +4337,8 @@ MonoBehaviour:
   randomRandomRange: 1
   critChance: 0.2
   critAmount: 20
+  cooldown: 0.25
+  canFire: 1
   friendlyFire: 0
   ignoreTeam: 0
 --- !u!1001 &1030008501
@@ -7446,8 +7450,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619297752755eb74a89ea0a60ca75054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wave: 0
   waveTime: 30
   waveScale: 1
+  keyWaves: 
   spawners:
   - {fileID: 1420566276}
   - {fileID: 628676238}
@@ -8597,7 +8603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 500671238880171737, guid: e317972348934ce408765b15292311b8, type: 3}
   showTrackLine: 1
-  loop: 1
+  loop: 0
   points:
   - {fileID: 6778890460245201337}
   - {fileID: 5551189632826064796}
@@ -9017,7 +9023,7 @@ LineRenderer:
     generateLightingData: 0
   m_MaskInteraction: 0
   m_UseWorldSpace: 1
-  m_Loop: 1
+  m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

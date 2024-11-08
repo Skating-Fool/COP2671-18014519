@@ -15,34 +15,41 @@ public class WeaponBase : Entity
     public float critChance = 0.2f;
     public float critAmount = 20.0f;
 
+    public float cooldown = 1.0f;
+    public bool canFire = true;
+
     public bool friendlyFire = false;
     public bool ignoreTeam = false;
 
     private bool foundTarget;
 
+    private Coroutine fire;
+
     void Start()
     {
+
         SelectionManager.OnSelect.AddListener(OnSelectEvent);
+
     }
 
     void Update()
     {
         if (gimbal.target != null)
         {
-            Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0, 0.1f), 0.1f);
+            //Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0, 0.1f), 0.1f);
         }
 
         GetTarget();
-        if (foundTarget)
+        if (foundTarget && canFire)
         {
-            Fire();
+            fire = StartCoroutine(nameof(Fire));
         }
 
     }
 
     void GetTarget()
     {
-
+        
         foundTarget = false;
 
         foreach (GameObject obj in detectionTrigger.objectsList)
@@ -97,17 +104,21 @@ public class WeaponBase : Entity
                 if (Random.value <= critChance)
                 {
                     amount += critAmount;
-                    Debug.Log($"Crit: {amount}");
                 }
 
+                amount = Mathf.Ceil(amount * 100) / 100;
+                Debug.Log($"Damage: {amount}");
                 return amount;
 
             }
         }
     }
 
-    public void Fire()
+    private IEnumerator Fire()
     {
+
+        canFire = false;
+
         RaycastHit hit;
         if (Physics.Raycast(firePoint.position, firePoint.TransformDirection(Vector3.forward), out hit))
         {
@@ -116,13 +127,24 @@ public class WeaponBase : Entity
 
             if (entity != null)
             {
-                if (entity.team != team || ignoreTeam)
+                if (entity.team != team)
                 {
                     Debug.DrawRay(
                         firePoint.position, 
                         firePoint.TransformDirection(Vector3.forward) * hit.distance, 
-                        new Color(255, 100, 0));
+                        Color.red);
                     entity.Damage(DamageAmount);
+                }
+                else if (ignoreTeam)
+                {
+                    if (friendlyFire)
+                    {
+                        Debug.DrawRay(
+                        firePoint.position,
+                        firePoint.TransformDirection(Vector3.forward) * hit.distance,
+                        Color.green);
+                        entity.Damage(DamageAmount);
+                    }
                 }
             }
 
@@ -133,6 +155,11 @@ public class WeaponBase : Entity
         }
         //Debug.DrawRay(firePoint.position, firePoint.eulerAngles, new Color(255, 255, 0), 0.1f);
         //Physics.Raycast(firePoint.position, firePoint.eulerAngles);
+
+        
+        yield return new WaitForSeconds(cooldown);
+        canFire = true;
+        //yield return null;
     }
 
     void OnSelectEvent(GameObject gameObject, int mouseClickNum)

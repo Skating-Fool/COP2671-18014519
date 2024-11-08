@@ -30,8 +30,9 @@ public class Trigger : MonoBehaviour
 
             if (obj == null)
             {
-                //objectsList.Remove(obj);
+                objectsList.Remove(obj);
             }
+
         }
 
         if (sortByDistance)

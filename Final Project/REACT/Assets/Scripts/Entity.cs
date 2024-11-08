@@ -22,6 +22,10 @@ public class Entity : MonoBehaviour
             health = 0.0f;
             Destroy(gameObject);
         }
+        
+        // Limit to 2 decimal places
+        health = Mathf.Ceil(health * 100) / 100;
+
     }
 
     public void DrainPower(float amount)
@@ -35,6 +39,10 @@ public class Entity : MonoBehaviour
         {
             power = 0.0f;
         }
+
+        // Limit to 2 decimal places
+        power = Mathf.Ceil(power * 100) / 100;
+
     }
 
 }
