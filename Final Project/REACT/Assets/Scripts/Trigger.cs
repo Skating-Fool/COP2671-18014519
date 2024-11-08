@@ -22,6 +22,18 @@ public class Trigger : MonoBehaviour
 
     private void Update()
     {
+
+        for (int i = 0; i < objectsList.Count; i++)
+        {
+
+            GameObject obj = objectsList[i];
+
+            if (obj == null)
+            {
+                //objectsList.Remove(obj);
+            }
+        }
+
         if (sortByDistance)
         {
             objectsList.Sort(SortByDistance);
@@ -30,20 +42,31 @@ public class Trigger : MonoBehaviour
 
     private int SortByDistance(GameObject obj1, GameObject obj2)
     {
-        float distanceA = Vector3.Distance(transform.position, obj1.transform.position);
-        float distanceB = Vector3.Distance(transform.position, obj2.transform.position);
-        
-        if (distanceA > distanceB)
+        if (obj1 == null)
         {
             return 1;
         }
-        else if (distanceA < distanceB)
+        else if (obj2 == null)
         {
             return -1;
         }
         else
         {
-            return 0;
+            float distanceA = Vector3.Distance(transform.position, obj1.transform.position);
+            float distanceB = Vector3.Distance(transform.position, obj2.transform.position);
+
+            if (distanceA > distanceB)
+            {
+                return 1;
+            }
+            else if (distanceA < distanceB)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 

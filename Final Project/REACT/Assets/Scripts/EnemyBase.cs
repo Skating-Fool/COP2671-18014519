@@ -3,19 +3,42 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
 
-    public float health = 100;
-    public float maxHealth = 100;
+    public float Speed
+    {
+        get
+        {
+            if (trackTrain != null)
+            {
+                return trackTrain.speed;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        set
+        {
+            if (trackTrain != null)
+            {
+                trackTrain.speed = value;
+            }
+        }
+
+    }
 
     public Gradient healthGradient = new Gradient();
     public Color healthColor;
 
     private Renderer meshRenderer;
+    private TrackTrain trackTrain;
 
     void Start()
     {
+        trackTrain = GetComponent<TrackTrain>();
         SelectionManager.OnSelect.AddListener(OnSelectEvent);
         meshRenderer = GetComponent<Renderer>();
     }

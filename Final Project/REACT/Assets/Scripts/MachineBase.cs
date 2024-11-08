@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineBase : MonoBehaviour
+public class MachineBase : Entity
 {
-
-    public int powerLevel = 0;
-    public int maxPowerLevel = 100;
 
     public virtual void Start()
     {

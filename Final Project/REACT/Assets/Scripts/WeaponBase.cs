@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TeamIdentifier))]
-public class WeaponBase : MonoBehaviour
+public class WeaponBase : Entity
 {
 
-    public Trigger trigger;
+    public Trigger detectionTrigger;
     public Gimbal gimbal;
+    public Transform firePoint;
 
-    private TeamIdentifier teamIdentity;
+    public bool constantDamage = false;
+    public float damage = 5.0f;
+    public float randomRandomRange = 1.0f;
+    public float critChance = 0.2f;
+    public float critAmount = 20.0f;
+
+    public bool friendlyFire = false;
+    public bool ignoreTeam = false;
+
+    private bool foundTarget;
 
     void Start()
     {
-        teamIdentity = GetComponent<TeamIdentifier>();
         SelectionManager.OnSelect.AddListener(OnSelectEvent);
     }
 
@@ -21,32 +29,45 @@ public class WeaponBase : MonoBehaviour
     {
         if (gimbal.target != null)
         {
-            Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0), 0.1f);
+            Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0, 0.1f), 0.1f);
         }
 
         GetTarget();
+        if (foundTarget)
+        {
+            Fire();
+        }
 
     }
 
     void GetTarget()
     {
 
-        bool foundTarget = false;
+        foundTarget = false;
 
-        foreach (GameObject obj in trigger.objectsList)
+        foreach (GameObject obj in detectionTrigger.objectsList)
         {
 
-            TeamIdentifier objTeamIdentity = obj.GetComponent<TeamIdentifier>();
-            if (objTeamIdentity != null)
+            if (obj != null)
             {
-
-                if (objTeamIdentity.team != teamIdentity.team)
+                Entity entity = obj.GetComponent<Entity>();
+                if (entity != null && obj != gameObject)
                 {
-                    gimbal.target = obj.transform;
-                    foundTarget = true;
-                    break;
+
+                    if (entity.team != team)
+                    {
+                        gimbal.target = obj.transform;
+                        foundTarget = true;
+                        break;
+                    }
+                    else if (ignoreTeam)
+                    {
+                        gimbal.target = obj.transform;
+                        foundTarget = true;
+                        break;
+                    }
+
                 }
-                    
             }
 
         }
@@ -56,6 +77,62 @@ public class WeaponBase : MonoBehaviour
             gimbal.target = gimbal.defaultTarget;
         }
         
+    }
+
+    public float DamageAmount
+    {
+        get
+        {
+            float amount = 0;
+            if (constantDamage)
+            {
+                return damage;
+            }
+            else
+            {
+
+                amount = damage * Random.Range(damage / 2, damage * 1.5f);
+
+                // Is Crit?
+                if (Random.value <= critChance)
+                {
+                    amount += critAmount;
+                    Debug.Log($"Crit: {amount}");
+                }
+
+                return amount;
+
+            }
+        }
+    }
+
+    public void Fire()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(firePoint.position, firePoint.TransformDirection(Vector3.forward), out hit))
+        {
+
+            Entity entity = hit.collider.gameObject.GetComponent<Entity>();
+
+            if (entity != null)
+            {
+                if (entity.team != team || ignoreTeam)
+                {
+                    Debug.DrawRay(
+                        firePoint.position, 
+                        firePoint.TransformDirection(Vector3.forward) * hit.distance, 
+                        new Color(255, 100, 0));
+                    entity.Damage(DamageAmount);
+                }
+            }
+
+        }
+        else
+        {
+            Debug.DrawRay(firePoint.position, firePoint.TransformDirection(Vector3.forward) * 1000, Color.white);
+        }
+        //Debug.DrawRay(firePoint.position, firePoint.eulerAngles, new Color(255, 255, 0), 0.1f);
+        //Physics.Raycast(firePoint.position, firePoint.eulerAngles);
     }
 
     void OnSelectEvent(GameObject gameObject, int mouseClickNum)
