@@ -78,7 +78,7 @@ public class TrackTrain : MonoBehaviour
             {
                 if (targetIndex < Track.points.Count)
                 {
-                    GameObject nextPoint = Track.getNextPoint(targetIndex);
+                    GameObject nextPoint = Track.GetNextPoint(targetIndex);
                     TrackPointData trackPointData = nextPoint.GetComponent<TrackPointData>();
 
                     Track = trackPointData.trackController;

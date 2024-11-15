@@ -51,7 +51,7 @@ public class Track : MonoBehaviour
 
     }
 
-    public GameObject getNextPoint(int ID)
+    public GameObject GetNextPoint(int ID)
     {
         if ((ID + 1) < points.Count)
         {
@@ -118,7 +118,7 @@ public class Track : MonoBehaviour
 
             newPoint = Instantiate(pointPrefab, points[points.Count - 1].position, points[points.Count - 1].rotation, transform);
 
-            Transform nextPos = newPoint.transform;
+            //Transform nextPos = newPoint.transform;
 
             if (points.Count == 1)
             {

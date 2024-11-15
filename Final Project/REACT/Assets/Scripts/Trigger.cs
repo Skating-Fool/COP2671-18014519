@@ -7,6 +7,8 @@ public class Trigger : MonoBehaviour
 {
 
     public UnityEvent OnFoundChanged;
+    public UnityEvent OnEnter;
+    public UnityEvent OnExit;
 
     public bool sortByDistance = true;
 
@@ -17,6 +19,8 @@ public class Trigger : MonoBehaviour
         if (OnFoundChanged == null)
         {
             OnFoundChanged = new UnityEvent();
+            OnEnter = new UnityEvent();
+            OnExit = new UnityEvent();
         }
     }
 
@@ -39,6 +43,7 @@ public class Trigger : MonoBehaviour
         {
             objectsList.Sort(SortByDistance);
         }
+
     }
 
     private int SortByDistance(GameObject obj1, GameObject obj2)
@@ -75,12 +80,14 @@ public class Trigger : MonoBehaviour
     {
         objectsList.Add(other.gameObject);
         OnFoundChanged.Invoke();
+        OnEnter.Invoke();
     }
 
     private void OnTriggerExit(Collider other)
     {
         objectsList.Remove(other.gameObject);
         OnFoundChanged.Invoke();
+        OnExit.Invoke();
     }
 
 }

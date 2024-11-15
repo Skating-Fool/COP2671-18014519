@@ -4356,17 +4356,21 @@ PrefabInstance:
       propertyPath: team
       value: Ally
       objectReference: {fileID: 0}
+    - target: {fileID: 1854124328222047534, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
+      propertyPath: constantDamage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3343488267542340899, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2139017649}
     - target: {fileID: 3343488267542340899, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_VersionIndex
-      value: 78
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 4597535871072952748, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597535871072952748, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4402,6 +4406,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597535871072952748, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897171343761677001, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
+      propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6967798861936401453, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
@@ -5100,6 +5108,12 @@ MonoBehaviour:
   OnFoundChanged:
     m_PersistentCalls:
       m_Calls: []
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   sortByDistance: 1
   objectsList: []
 --- !u!4 &1402993089
@@ -5331,7 +5345,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!33 &1488982291
 MeshFilter:
@@ -8690,7 +8704,7 @@ PrefabInstance:
       objectReference: {fileID: 616501075}
     - target: {fileID: 3343488267542340899, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_VersionIndex
-      value: 77
+      value: 109
       objectReference: {fileID: 0}
     - target: {fileID: 4597535871072952748, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8730,6 +8744,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597535871072952748, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897171343761677001, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
+      propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6967798861936401453, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}

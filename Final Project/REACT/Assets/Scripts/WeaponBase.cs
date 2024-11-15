@@ -140,9 +140,9 @@ public class WeaponBase : Entity
                     if (friendlyFire)
                     {
                         Debug.DrawRay(
-                        firePoint.position,
-                        firePoint.TransformDirection(Vector3.forward) * hit.distance,
-                        Color.green);
+                            firePoint.position,
+                            firePoint.TransformDirection(Vector3.forward) * hit.distance,
+                            Color.green);
                         entity.Damage(DamageAmount);
                     }
                 }
