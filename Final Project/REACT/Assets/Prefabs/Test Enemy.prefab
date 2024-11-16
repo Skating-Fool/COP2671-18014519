@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3343488267542340899}
   - component: {fileID: 3695108992049077193}
   - component: {fileID: 6967798861936401453}
-  - component: {fileID: 7966548787650687586}
   - component: {fileID: 1854124328222047534}
   - component: {fileID: 6443614711883335645}
+  - component: {fileID: 4186610967246491275}
+  - component: {fileID: 6044825694850429154}
   m_Layer: 0
   m_Name: Test Enemy
   m_TagString: Untagged
@@ -305,28 +306,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8465019063367363011}
   m_Mesh: {fileID: 0}
---- !u!64 &7966548787650687586
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8465019063367363011}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!114 &1854124328222047534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +356,17 @@ MonoBehaviour:
   healthColor: {r: 0, g: 0, b: 0, a: 0}
   trigger: {fileID: 4485409831271259895}
   trackTrain: {fileID: 6443614711883335645}
+  constantDamage: 1
+  damage: 5
+  randomDamageRange: 1
+  critChance: 0.2
+  critAmount: 20
+  cooldown: 1
+  penetrate: 0
+  maxHitCount: 1
+  friendlyFire: 0
+  ignoreTeam: 0
+  target: {fileID: 0}
 --- !u!114 &6443614711883335645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +381,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _track: {fileID: 0}
   speed: 5
+--- !u!65 &4186610967246491275
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8465019063367363011}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6044825694850429154
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8465019063367363011}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8971484907198670725
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +439,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5382199802507686438}
   - component: {fileID: 4485409831271259895}
-  - component: {fileID: 5897171343761677001}
   - component: {fileID: 8214144140818053181}
   m_Layer: 0
   m_Name: Trigger
@@ -448,33 +485,6 @@ MonoBehaviour:
       m_Calls: []
   sortByDistance: 1
   objectsList: []
---- !u!54 &5897171343761677001
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8971484907198670725}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!135 &8214144140818053181
 SphereCollider:
   m_ObjectHideFlags: 0

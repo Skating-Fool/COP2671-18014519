@@ -11,7 +11,7 @@ public class WeaponBase : Entity
 
     public bool constantDamage = false;
     public float damage = 5.0f;
-    public float randomRandomRange = 1.0f;
+    public float randomDamageRange = 1.0f;
     public float critChance = 0.2f;
     public float critAmount = 20.0f;
 
@@ -107,7 +107,7 @@ public class WeaponBase : Entity
                 }
 
                 amount = Mathf.Ceil(amount * 100) / 100;
-                Debug.Log($"Damage: {amount}");
+                //Debug.Log($"Damage: {amount}");
                 return amount;
 
             }

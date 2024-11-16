@@ -16,12 +16,9 @@ public class Trigger : MonoBehaviour
 
     private void Awake()
     {
-        if (OnFoundChanged == null)
-        {
-            OnFoundChanged = new UnityEvent();
-            OnEnter = new UnityEvent();
-            OnExit = new UnityEvent();
-        }
+        OnFoundChanged ??= new UnityEvent();
+        OnEnter ??= new UnityEvent();
+        OnExit ??= new UnityEvent();
     }
 
     private void Update()

@@ -38,12 +38,15 @@ public class Enemy : Entity
 
     public bool constantDamage = false;
     public float damage = 5.0f;
-    public float randomRandomRange = 1.0f;
+    public float randomDamageRange = 1.0f;
     public float critChance = 0.2f;
     public float critAmount = 20.0f;
 
     public float cooldown = 1.0f;
-    public bool canFire = true;
+    private bool canFire = true;
+
+    public bool penetrate = false;
+    public int maxPenetrateCount = 1;
 
     public bool friendlyFire = false;
     public bool ignoreTeam = false;
@@ -115,7 +118,7 @@ public class Enemy : Entity
 
         if (!foundTarget)
         {
-            //target = null;
+            target = null;
         }
 
     }
@@ -141,7 +144,7 @@ public class Enemy : Entity
                 }
 
                 amount = Mathf.Ceil(amount * 100) / 100;
-                Debug.Log($"Damage: {amount}");
+                //Debug.Log($"Damage: {amount}");
                 return amount;
 
             }
@@ -153,48 +156,92 @@ public class Enemy : Entity
 
         canFire = false;
 
-        RaycastHit hit;
-        Vector3 fireDirection = target.transform.position - transform.position;
-
-        //Debug.DrawRay(transform.position, fireDirection, Color.blue,cooldown);
-
-        if (Physics.Raycast(transform.position, fireDirection, out hit))
+        //Entity ent = target.GetComponent<Entity>();
+        //if (ent != null) ent.Damage(DamageAmount);
+        
+        Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
+        Vector3 targetPoint;
+        if (targetRigidbody != null)
         {
+            targetPoint = target.transform.position + targetRigidbody.centerOfMass;
+        }
+        else
+        {
+            targetPoint = target.transform.position;
+        }
+
+        Vector3 fireDirection = targetPoint - transform.position;
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, fireDirection);
+
+        int hitcount = 0;
+        string debugMessage = "Hits: ";
+        foreach(RaycastHit hit in hits)
+        {
+
+            if (hit.collider.isTrigger)
+            {
+                continue;
+            }
+
+            GameObject objectHit = hit.collider.gameObject;
             
-            Entity entity = hit.collider.gameObject.GetComponent<Entity>();
+            Debug.DrawRay(transform.position, fireDirection, Color.white, cooldown * 2);
+
+            Entity entity = objectHit.GetComponent<Entity>();
+
+            debugMessage += $"{objectHit.name}, ";
 
             if (entity != null)
             {
-                Debug.Log("Hit");
+
                 if (entity.team != team)
                 {
+
                     Debug.DrawRay(
                         transform.position,
                         fireDirection,
                         Color.red,
-                        cooldown);
+                        cooldown * 2);
                     entity.Damage(DamageAmount);
+
+                    if (penetrate && entity != null)
+                    {
+                        hitcount++;
+                    }
+
                 }
                 else if (ignoreTeam)
                 {
+
                     if (friendlyFire)
                     {
+
                         Debug.DrawRay(
                             transform.position,
                             fireDirection,
                             Color.green,
-                            cooldown);
+                            cooldown * 2);
                         entity.Damage(DamageAmount);
+
+                        if (penetrate && entity != null)
+                        {
+                            hitcount++;
+                        }
+
                     }
+
                 }
+
+                if (hitcount >= maxPenetrateCount && penetrate)
+                {
+                    break;
+                }
+
             }
 
         }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-        }
-
+        Debug.Log(debugMessage);
+        
         yield return new WaitForSeconds(cooldown);
         canFire = true;
 

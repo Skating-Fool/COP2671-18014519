@@ -30,10 +30,10 @@ public class Machine_Reactor : MachineBase
     private void GeneratePower()
     {
         
-        if (power < 1000 && running)
+        if (power < maxPower && running)
         {
             power += EUPerTick;
-            if (power > 1000)
+            if (power > maxPower)
             {
                 power = maxPower;
             }

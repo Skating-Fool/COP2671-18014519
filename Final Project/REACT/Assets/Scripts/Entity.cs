@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Entity : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class Entity : MonoBehaviour
     public float maxHealth = 100.0f;
     public float power = 100.0f;
     public float maxPower = 100.0f;
+
+    public UnityEvent OnDeath;
+
+    private void Awake()
+    {
+        OnDeath ??= new UnityEvent();
+    }
 
     public void Damage(float amount)
     {
@@ -20,6 +28,7 @@ public class Entity : MonoBehaviour
         if (health <= 0.0f)
         {
             health = 0.0f;
+            OnDeath.Invoke();
             Destroy(gameObject);
         }
         
