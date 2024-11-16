@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -155,9 +156,6 @@ public class Enemy : Entity
     {
 
         canFire = false;
-
-        //Entity ent = target.GetComponent<Entity>();
-        //if (ent != null) ent.Damage(DamageAmount);
         
         Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
         Vector3 targetPoint;
@@ -171,11 +169,15 @@ public class Enemy : Entity
         }
 
         Vector3 fireDirection = targetPoint - transform.position;
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, fireDirection);
+        List<RaycastHit> hits = Physics.RaycastAll(transform.position, fireDirection).ToList();
+
+        hits.Sort(SortByDistance);
 
         int hitcount = 0;
-        string debugMessage = "Hits: ";
-        foreach(RaycastHit hit in hits)
+
+        Color randomColor = Random.ColorHSV(0, 1, 1, 1);
+
+        foreach (RaycastHit hit in hits)
         {
 
             if (hit.collider.isTrigger)
@@ -184,12 +186,10 @@ public class Enemy : Entity
             }
 
             GameObject objectHit = hit.collider.gameObject;
-            
-            Debug.DrawRay(transform.position, fireDirection, Color.white, cooldown * 2);
+
+            Debug.DrawLine(hit.point, hit.point + (hit.normal / 2), randomColor, 1f);
 
             Entity entity = objectHit.GetComponent<Entity>();
-
-            debugMessage += $"{objectHit.name}, ";
 
             if (entity != null)
             {
@@ -197,11 +197,6 @@ public class Enemy : Entity
                 if (entity.team != team)
                 {
 
-                    Debug.DrawRay(
-                        transform.position,
-                        fireDirection,
-                        Color.red,
-                        cooldown * 2);
                     entity.Damage(DamageAmount);
 
                     if (penetrate && entity != null)
@@ -216,11 +211,6 @@ public class Enemy : Entity
                     if (friendlyFire)
                     {
 
-                        Debug.DrawRay(
-                            transform.position,
-                            fireDirection,
-                            Color.green,
-                            cooldown * 2);
                         entity.Damage(DamageAmount);
 
                         if (penetrate && entity != null)
@@ -238,13 +228,45 @@ public class Enemy : Entity
                 }
 
             }
+            else // If not a entity
+            {    // Consider it a brick wall and stop
+                break;
+            }
 
         }
-        Debug.Log(debugMessage);
         
         yield return new WaitForSeconds(cooldown);
         canFire = true;
 
+    }
+
+    private int SortByDistance(RaycastHit obj1, RaycastHit obj2)
+    {
+        if (obj2.collider.gameObject == null)
+        {
+            return 1;
+        }
+        else if (obj1.collider.gameObject == null)
+        {
+            return -1;
+        }
+        else
+        {
+            float distanceA = Vector3.Distance(transform.position, obj2.point);
+            float distanceB = Vector3.Distance(transform.position, obj1.point);
+            if (distanceA > distanceB)
+            {
+                return -1;
+            }
+            else if (distanceA < distanceB)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 
     void OnSelectEvent(GameObject gameObject, int mouseClickNum)

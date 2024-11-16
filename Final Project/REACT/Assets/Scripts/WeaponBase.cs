@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.InputSystem.LowLevel;
+using System.Linq;
 
 public class WeaponBase : Entity
 {
@@ -17,6 +20,9 @@ public class WeaponBase : Entity
 
     public float cooldown = 1.0f;
     public bool canFire = true;
+
+    public bool penetrate = false;
+    public int maxPenetrateCount = 1;
 
     public bool friendlyFire = false;
     public bool ignoreTeam = false;
@@ -116,7 +122,74 @@ public class WeaponBase : Entity
 
     private IEnumerator Fire()
     {
+        canFire = false;
 
+        Vector3 fireDirection = firePoint.TransformDirection(Vector3.forward);
+        List<RaycastHit> hits = Physics.RaycastAll(firePoint.position, fireDirection).ToList();
+
+        hits.Sort(SortByDistance);
+
+        int hitcount = 0;
+
+        Color randomColor = Random.ColorHSV(0, 1, 1, 1);
+
+        foreach (RaycastHit hit in hits)
+        {
+
+            if (hit.collider.isTrigger)
+            {
+                continue;
+            }
+
+            Debug.DrawLine(hit.point, hit.point + (hit.normal / 2), randomColor, 1f);
+
+            GameObject objectHit = hit.collider.gameObject;
+
+            Entity entity = objectHit.GetComponent<Entity>();
+
+            if (entity != null)
+            {
+
+                if (entity.team != team)
+                {
+
+                    entity.Damage(DamageAmount);
+
+                    if (penetrate && entity != null)
+                    {
+                        hitcount++;
+                    }
+
+                }
+                else if (ignoreTeam)
+                {
+
+                    if (friendlyFire)
+                    {
+
+                        entity.Damage(DamageAmount);
+
+                        if (penetrate && entity != null)
+                        {
+                            hitcount++;
+                        }
+                    }
+
+                }
+
+                if (hitcount >= maxPenetrateCount && penetrate)
+                {
+                    break;
+                }
+
+            }
+
+        }
+
+        yield return new WaitForSeconds(cooldown);
+        canFire = true;
+
+        /*
         canFire = false;
 
         RaycastHit hit;
@@ -160,6 +233,36 @@ public class WeaponBase : Entity
         yield return new WaitForSeconds(cooldown);
         canFire = true;
         //yield return null;
+        */
+    }
+
+    private int SortByDistance(RaycastHit obj1, RaycastHit obj2)
+    {
+        if (obj2.collider.gameObject == null)
+        {
+            return 1;
+        }
+        else if (obj1.collider.gameObject == null)
+        {
+            return -1;
+        }
+        else
+        {
+            float distanceA = Vector3.Distance(transform.position, obj2.point);
+            float distanceB = Vector3.Distance(transform.position, obj1.point);
+            if (distanceA > distanceB)
+            {
+                return -1;
+            }
+            else if (distanceA < distanceB)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 
     void OnSelectEvent(GameObject gameObject, int mouseClickNum)
