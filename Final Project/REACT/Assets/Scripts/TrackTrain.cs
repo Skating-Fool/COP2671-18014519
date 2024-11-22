@@ -12,7 +12,9 @@ public class TrackTrain : MonoBehaviour
     private int _targetIndex = 0;
     private Vector3 targetPos;
 
-    public int targetIndex
+    public TrackSpawner creator;
+
+    public int TargetIndex
     {
         get { return _targetIndex; }
         set
@@ -62,7 +64,7 @@ public class TrackTrain : MonoBehaviour
     {
         if (Track)
         {
-            targetPos = Track.points[targetIndex].position;
+            targetPos = Track.points[TargetIndex].position;
         }
     }
 
@@ -76,14 +78,14 @@ public class TrackTrain : MonoBehaviour
 
             if (Vector3.Distance(transform.position, targetPos) < 0.001f)
             {
-                if (targetIndex < Track.points.Count)
+                if (TargetIndex < Track.points.Count)
                 {
-                    GameObject nextPoint = Track.GetNextPoint(targetIndex);
+                    GameObject nextPoint = Track.GetNextPoint(TargetIndex);
                     TrackPointData trackPointData = nextPoint.GetComponent<TrackPointData>();
 
                     Track = trackPointData.trackController;
-                    targetIndex = trackPointData.ID;
-                    targetPos = Track.points[targetIndex].position;
+                    TargetIndex = trackPointData.ID;
+                    targetPos = Track.points[TargetIndex].position;
                 }
             }
         }

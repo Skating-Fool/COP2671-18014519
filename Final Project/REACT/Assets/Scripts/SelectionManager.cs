@@ -11,15 +11,7 @@ public class SelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        if (OnSelect == null)
-        {
-            OnSelect = new UnityEvent<GameObject, int>();
-        }
-    }
-
-    void Start()
-    {
-        
+        OnSelect ??= new UnityEvent<GameObject, int>();
     }
 
     void Update()

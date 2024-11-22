@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum cam
+public enum Cam
 {
     FreeCam,
     TopCam,
@@ -22,7 +22,7 @@ public class CameraManager : MonoBehaviour
 
     private Camera currentCameraComponent;
     private CameraControllerBase currentCameraController;
-    [SerializeField] private cam currentCamera = cam.FreeCam;
+    [SerializeField] private Cam currentCamera = Cam.FreeCam;
 
     void Start()
     {
@@ -48,7 +48,7 @@ public class CameraManager : MonoBehaviour
         
     }
 
-    public void SwitchTo(cam camera)
+    public void SwitchTo(Cam camera)
     {
 
         foreach (var cam in cameras)

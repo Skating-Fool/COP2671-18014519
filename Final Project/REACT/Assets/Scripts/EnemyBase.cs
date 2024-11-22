@@ -60,10 +60,9 @@ public class Enemy : Entity
 
     private Renderer meshRenderer;
 
-    void Start()
+    public override void Start()
     {
-        //trackTrain = GetComponent<TrackTrain>();
-        SelectionManager.OnSelect.AddListener(OnSelectEvent);
+        base.Start();
         meshRenderer = GetComponent<Renderer>();
     }
 
@@ -268,13 +267,4 @@ public class Enemy : Entity
             }
         }
     }
-
-    void OnSelectEvent(GameObject gameObject, int mouseClickNum)
-    {
-        if (transform.gameObject.Equals(gameObject))
-        {
-            Debug.Log("Click Event Not Implemented Yet");
-        }
-    }
-
 }

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using UnityEngine.InputSystem.LowLevel;
 using System.Linq;
 
 public class WeaponBase : Entity
@@ -31,11 +29,20 @@ public class WeaponBase : Entity
 
     private Coroutine fire;
 
-    void Start()
+    public float powerDraw = 1.0f;
+    public float powerDrawDelay = 0.5f;
+    public bool drawPower = true;
+    public float power = 100.0f;
+    public float powerCapacity = 100.0f;
+
+    private bool canDrawPower = true;
+
+    private Coroutine getPower;
+
+
+    public override void Start()
     {
-
-        SelectionManager.OnSelect.AddListener(OnSelectEvent);
-
+        base.Start();
     }
 
     void Update()
@@ -43,6 +50,11 @@ public class WeaponBase : Entity
         if (gimbal.target != null)
         {
             //Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0, 0.1f), 0.1f);
+        }
+
+        if (canDrawPower)
+        {
+            getPower = StartCoroutine(nameof(GetPower));
         }
 
         GetTarget();
@@ -120,9 +132,81 @@ public class WeaponBase : Entity
         }
     }
 
+    public virtual bool DrainPower(float? amount = null)
+    {
+
+        float _amount;
+        if (amount == null)
+        {
+            _amount = powerDraw;
+        }
+        else
+        {
+            _amount = amount.Value;
+        }
+
+        if (drawPower)
+        {
+
+            if (power >= powerDraw)
+            {
+                power -= _amount;
+                // Limit to 2 decimal places
+                power = Mathf.Ceil(power * 100) / 100;
+            }
+            else
+            {
+                return false;
+            }
+
+            if (power <= 0.0f)
+            {
+                power = 0.0f;
+            }
+
+        }
+
+        return true;
+
+    }
+
+    private IEnumerator GetPower()
+    {
+        canDrawPower = false;
+        if (resourceManager != null)
+        {
+            if (resourceManager.power >= powerDraw && power <= powerCapacity - powerDraw)
+            {
+                if (resourceManager.power < powerDraw)
+                {
+                    float amount = resourceManager.power;
+                    resourceManager.power -= amount;
+                    power += amount;
+                }
+                else
+                {
+                    power += powerDraw;
+                    resourceManager.power -= powerDraw;
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(powerDrawDelay);
+        canDrawPower = true;
+    }
+
     private IEnumerator Fire()
     {
         canFire = false;
+
+        if (drawPower)
+        {
+            if (DrainPower() == false)
+            {
+                canFire = true;
+                yield break;
+            }
+        }
 
         Vector3 fireDirection = firePoint.TransformDirection(Vector3.forward);
         List<RaycastHit> hits = Physics.RaycastAll(firePoint.position, fireDirection).ToList();
@@ -173,6 +257,7 @@ public class WeaponBase : Entity
                         {
                             hitcount++;
                         }
+
                     }
 
                 }
@@ -262,14 +347,6 @@ public class WeaponBase : Entity
             {
                 return 0;
             }
-        }
-    }
-
-    void OnSelectEvent(GameObject gameObject, int mouseClickNum)
-    {
-        if (transform.gameObject.Equals(gameObject))
-        {
-            Debug.Log("Click Event Not Implemented Yet");
         }
     }
 

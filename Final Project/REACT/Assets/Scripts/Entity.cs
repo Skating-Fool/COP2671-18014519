@@ -6,19 +6,33 @@ using UnityEngine.Events;
 public class Entity : MonoBehaviour
 {
     public string team;
+    public bool isAlive = true;
+    public bool destroyOnDeath = true;
     public float health = 100.0f;
     public float maxHealth = 100.0f;
-    public float power = 100.0f;
-    public float maxPower = 100.0f;
 
-    public UnityEvent OnDeath;
+    public UnityEvent<Entity> OnDeath;
+
+    public ResourceManager resourceManager;
 
     private void Awake()
     {
-        OnDeath ??= new UnityEvent();
+        OnDeath ??= new UnityEvent<Entity>();
     }
 
-    public void Damage(float amount)
+    public virtual void Start()
+    {
+
+        SelectionManager.OnSelect.AddListener(OnSelectEvent);
+
+        if (resourceManager == null)
+        {
+            resourceManager = FindObjectOfType<ResourceManager>();
+        }
+
+    }
+
+    public virtual void Damage(float amount)
     {
         if (health > 0.0f)
         {
@@ -28,8 +42,15 @@ public class Entity : MonoBehaviour
         if (health <= 0.0f)
         {
             health = 0.0f;
-            OnDeath.Invoke();
-            Destroy(gameObject);
+            if (isAlive)
+            {
+                isAlive = false;
+                OnDeath.Invoke(this);
+                if (destroyOnDeath)
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
         
         // Limit to 2 decimal places
@@ -37,21 +58,12 @@ public class Entity : MonoBehaviour
 
     }
 
-    public void DrainPower(float amount)
+    public virtual void OnSelectEvent(GameObject gameObject, int mouseClickNum)
     {
-        if (power > 0.0f)
+        if (transform.gameObject.Equals(gameObject))
         {
-            power -= amount;
+            Debug.Log("Click Event Not Implemented Yet");
         }
-
-        if (power <= 0.0f)
-        {
-            power = 0.0f;
-        }
-
-        // Limit to 2 decimal places
-        power = Mathf.Ceil(power * 100) / 100;
-
     }
 
 }

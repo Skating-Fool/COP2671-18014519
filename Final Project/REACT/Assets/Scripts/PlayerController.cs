@@ -103,15 +103,15 @@ public class PlayerController : MonoBehaviour
         // Camera Switching
         if (Input.GetKeyDown("1"))
         {
-            CameraController.SwitchTo(cam.FreeCam);
+            CameraController.SwitchTo(Cam.FreeCam);
         }
         else if(Input.GetKeyDown("2"))
         {
-            CameraController.SwitchTo(cam.TopCam);
+            CameraController.SwitchTo(Cam.TopCam);
         }
         else if (Input.GetKeyDown("3"))
         {
-            CameraController.SwitchTo(cam.OrthographicCam);
+            CameraController.SwitchTo(Cam.OrthographicCam);
         }
 
         // Reset Camera Postion
