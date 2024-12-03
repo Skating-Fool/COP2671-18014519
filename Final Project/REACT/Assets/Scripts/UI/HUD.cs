@@ -9,11 +9,14 @@ public class HUD : MonoBehaviour
     public ResourceManager resourceManager;
     public GameManager gameManager;
 
-    public TMP_Text EU_Text;
+    public UI_BarDisplay EU_Bar;
     public TMP_Text EnemyCount_Text;
 
-    private string EU_Text_init;
+    public TMP_Text MetalCount_Text;
+
+    //private string EU_Text_init;
     private string EnemyCount_Init;
+    private string MetalCount_Init;
 
     void Start()
     {
@@ -27,15 +30,20 @@ public class HUD : MonoBehaviour
             gameManager = FindObjectOfType<GameManager>();
         }
 
-        EU_Text_init = EU_Text.text;
+        //EU_Text_init = EU_Text.text;
+        EU_Bar.Min = 0;
+        EU_Bar.Max = resourceManager.powerCapacity;
         EnemyCount_Init = EnemyCount_Text.text;
+        MetalCount_Init = MetalCount_Text.text;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        EU_Text.text = $"{EU_Text_init}{resourceManager.power}/{resourceManager.powerCapacity}";
-        EnemyCount_Text.text = EnemyCount_Init + gameManager.enemyCount.ToString();
+        //EU_Text.text = $"{EU_Text_init}{resourceManager.power}/{resourceManager.powerCapacity}";
+        EU_Bar.Data = resourceManager.power;
+        EnemyCount_Text.text = $"{EnemyCount_Init}{gameManager.enemyCount}";
+        MetalCount_Text.text = $"{MetalCount_Init}{resourceManager.metal}";
     }
 }

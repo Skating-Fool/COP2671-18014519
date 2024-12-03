@@ -37,6 +37,13 @@ public class Machine_Reactor : Entity
             {
                 resourceManager.power = resourceManager.powerCapacity;
             }
+            else if (resourceManager.power < 0)
+            {
+                // While the normal use of this is to increase power,
+                // -if the EUPerTick is negative, for some reason that I haven't thought of yet,
+                //  -lets just prevent it from putting us in debt.
+                resourceManager.power = 0;
+            }
         }
         yield return new WaitForSeconds(DelayBetweenTicks);
         canGenerate = true;
