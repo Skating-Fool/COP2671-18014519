@@ -22,6 +22,7 @@ public class UI_BoxScaling : MonoBehaviour
     private RectTransform rectTransform;
     private Vector2 defaultSize;
 
+    // 
     void Start()
     {
         tmpObjects = GetComponentsInChildren<TMP_Text>();

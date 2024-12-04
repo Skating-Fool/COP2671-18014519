@@ -2,53 +2,62 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
 
-    public CameraManager CameraController;
+    public CameraManager cameraController;
+    public PauseMenu pauseMenu;
 
     private Vector2 OldCursorPos = new Vector2();
 
     void Start()
     {
-        
+        Assert.IsNotNull(cameraController, "cameraController Is Null");
+        Assert.IsNotNull(pauseMenu, "Pause Menu Is Null");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        // Open Pause Menu
+        if (Input.GetKeyDown("escape"))
+        {
+            pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+        }
+
         // Move Camera
         if (Input.GetKey("w"))
         {
-            CameraController.MoveForward();
+            cameraController.MoveForward();
         }
 
         if (Input.GetKey("a"))
         {
-            CameraController.MoveLeft();
+            cameraController.MoveLeft();
         }
 
         if (Input.GetKey("s"))
         {
-            CameraController.MoveBackward();
+            cameraController.MoveBackward();
         }
 
         if (Input.GetKey("d"))
         {
-            CameraController.MoveRight();
+            cameraController.MoveRight();
         }
 
         if (Input.GetKey("left shift"))
         {
-            CameraController.MoveDown();
+            cameraController.MoveDown();
         }
 
         if (Input.GetKey("space"))
         {
-            CameraController.MoveUp();
+            cameraController.MoveUp();
         }
         
         /*
@@ -66,12 +75,12 @@ public class PlayerController : MonoBehaviour
         // Rotate Camera
         if (Input.GetKey("q"))
         {
-            CameraController.RotateLeft();
+            cameraController.RotateLeft();
         }
 
         if (Input.GetKey("e"))
         {
-            CameraController.RotateRight();
+            cameraController.RotateRight();
         }
 
         if (Input.GetKey("mouse 1"))
@@ -86,7 +95,7 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             
-            CameraController.RotateWithMouse();
+            cameraController.RotateWithMouse();
         }
         else if (!Cursor.visible) // Make visable, unlock, and return to old postion
         {
@@ -103,21 +112,21 @@ public class PlayerController : MonoBehaviour
         // Camera Switching
         if (Input.GetKeyDown("1"))
         {
-            CameraController.SwitchTo(Cam.FreeCam);
+            cameraController.SwitchTo(Cam.FreeCam);
         }
         else if(Input.GetKeyDown("2"))
         {
-            CameraController.SwitchTo(Cam.TopCam);
+            cameraController.SwitchTo(Cam.TopCam);
         }
         else if (Input.GetKeyDown("3"))
         {
-            CameraController.SwitchTo(Cam.OrthographicCam);
+            cameraController.SwitchTo(Cam.OrthographicCam);
         }
 
         // Reset Camera Postion
         if (Input.GetKeyDown("r"))
         {
-            CameraController.SendCameraToHome();
+            cameraController.SendCameraToHome();
         }
 
     }

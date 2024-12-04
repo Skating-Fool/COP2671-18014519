@@ -5,6 +5,7 @@
 <br>
 
 Key Binds:
+- ESC : Open/Close Pause Menu
 - W : Forward 
 - A : Backward
 - S : Right

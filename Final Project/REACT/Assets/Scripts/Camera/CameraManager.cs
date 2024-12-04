@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum Cam
 {
@@ -42,10 +43,9 @@ public class CameraManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SwitchTo(Cam camera)

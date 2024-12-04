@@ -62,7 +62,7 @@ public class Entity : MonoBehaviour
     {
         if (transform.gameObject.Equals(gameObject))
         {
-            Debug.Log("Click Event Not Implemented Yet");
+            Debug.Log($"[{name}] Click Event Not Implemented Yet");
         }
     }
 

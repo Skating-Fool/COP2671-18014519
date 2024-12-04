@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class SelectionManager : MonoBehaviour
 {
 
+    public GameObject cursor;
     public static UnityEvent<GameObject, int> OnSelect;
+    
+    private Ray ray;
+    private RaycastHit rayHit;
 
     private void Awake()
     {
@@ -16,27 +21,55 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0))
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit rayHit, Mathf.Infinity, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
-            Select(1);
+            this.rayHit = rayHit;
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+
+                cursor.SetActive(true);
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Select(1);
+                }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    Select(2);
+                }
+                else
+                {
+
+                    cursor.transform.position = rayHit.point;
+                    Debug.DrawLine(Camera.main.gameObject.transform.position, rayHit.transform.position, Color.red);
+                    Debug.DrawLine(rayHit.point, rayHit.point + (rayHit.normal / 2), Color.red);
+                    Debug.DrawLine(Camera.main.gameObject.transform.position, rayHit.point, Color.green);
+
+                }
+
+            }
+            else
+            {
+                cursor.SetActive(false);
+            }
+
         }
-        else if (Input.GetMouseButtonDown(1))
+        else
         {
-            Select(2);
+            cursor.SetActive(false);
         }
 
     }
 
     private void Select(int mouseNum)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default")))
-        {
-            //Debug.Log($"Hit: {hit.transform.gameObject}");
-            OnSelect.Invoke(hit.transform.gameObject, mouseNum);
-        }
+        Debug.DrawLine(Camera.main.gameObject.transform.position, rayHit.transform.position, Color.red, 2f);
+        Debug.DrawLine(rayHit.point, rayHit.point + (rayHit.normal / 2), Color.red, 2f);
+        Debug.DrawLine(Camera.main.gameObject.transform.position, rayHit.point, Color.green, 2f);
+        OnSelect.Invoke(rayHit.transform.gameObject, mouseNum);
     }
 
 }
