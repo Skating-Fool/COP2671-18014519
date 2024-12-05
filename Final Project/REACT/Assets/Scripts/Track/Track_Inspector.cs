@@ -1,9 +1,10 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using UnityEditor;
+using UnityEditor.UIElements;
 
 [CustomEditor(typeof(Track))]
 public class Track_Inspector : Editor
@@ -85,3 +86,4 @@ public class Track_Inspector : Editor
     }
 
 }
+#endif

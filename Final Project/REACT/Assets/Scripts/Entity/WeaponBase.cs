@@ -365,4 +365,17 @@ public class WeaponBase : Entity
         }
     }
 
+    public override void OnSelectEvent(GameObject gameObject, int mouseClickNum)
+    {
+        if (transform.gameObject.Equals(gameObject))
+        {
+
+            if ( mouseClickNum == 1)
+            {
+                Debug.Log($"[{name}] Click Event Not Implemented Yet");
+            }
+            
+        }
+    }
+
 }

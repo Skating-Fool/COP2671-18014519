@@ -8,13 +8,13 @@ using UnityEngine.EventSystems;
 public class HUD : MonoBehaviour
 {
     
-    public ResourceManager resourceManager;
-    public GameManager gameManager;
+    [SerializeField] private ResourceManager resourceManager;
+    [SerializeField] private GameManager gameManager;
 
-    public UI_BarDisplay EU_Bar;
-    public TMP_Text EnemyCount_Text;
-    public TMP_Text MetalCount_Text;
-    public TMP_Text WaveNumber_Text;
+    [SerializeField] private UI_BarDisplay EU_Bar;
+    [SerializeField] private TMP_Text EnemyCount_Text;
+    [SerializeField] private TMP_Text MetalCount_Text;
+    [SerializeField] private TMP_Text WaveNumber_Text;
 
     private string EnemyCount_Init;
     private string MetalCount_Init;
