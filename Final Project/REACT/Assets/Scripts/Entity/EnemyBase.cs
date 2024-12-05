@@ -58,18 +58,20 @@ public class Enemy : Entity
 
     private Coroutine fire;
 
-    private Renderer meshRenderer;
+    [SerializeField] private Renderer meshRenderer;
 
     public override void Start()
     {
         base.Start();
-        meshRenderer = GetComponent<Renderer>();
+        meshRenderer = meshRenderer != null ? meshRenderer : GetComponent<Renderer>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //Debug.Log(meshRenderer == null);
+        //Debug.Break();
         healthColor = healthGradient.Evaluate(health / maxHealth);
 
         meshRenderer.material.SetColor("_Color", healthColor);

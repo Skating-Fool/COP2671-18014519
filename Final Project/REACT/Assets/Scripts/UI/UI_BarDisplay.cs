@@ -22,10 +22,10 @@ public class UI_BarDisplay : MonoBehaviour
     public Color underMinColor = new Color(255, 0, 0, 255);
     public Color overMaxColor = new Color(255, 0, 0, 255);
 
-    public RectTransform bgTransform;
-    public RectTransform fgTransform;
-    private Image fgImage;
-    public TMP_Text dataText;
+    [SerializeField] private RectTransform bgTransform;
+    [SerializeField] private RectTransform fgTransform;
+    [SerializeField] private Image fgImage;
+    [SerializeField] private TMP_Text dataText;
 
     public bool testMode = false;
 
@@ -84,7 +84,6 @@ public class UI_BarDisplay : MonoBehaviour
         Assert.IsNotNull(fgTransform, "Foreground Transform Is Null");
         Assert.IsNotNull(dataText, "TextMeshPro Percent Text Is Null");
 
-        fgImage = fgTransform.GetComponent<Image>();
         dataText.enabled = showData;
 
     }

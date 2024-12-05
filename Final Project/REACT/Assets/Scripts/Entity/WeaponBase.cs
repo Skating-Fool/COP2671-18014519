@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class WeaponBase : Entity
 {
+
+    public UnityEvent OnFire;
 
     public Trigger detectionTrigger;
     public Gimbal gimbal;
@@ -39,28 +42,38 @@ public class WeaponBase : Entity
 
     private Coroutine getPower;
 
-
     public override void Start()
     {
         base.Start();
     }
 
+    private void Awake()
+    {
+        OnFire ??= new UnityEvent();
+    }
+
     void Update()
     {
-        if (gimbal.target != null)
+        
+        if (isAlive)
         {
-            //Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0, 0.1f), 0.1f);
-        }
 
-        if (canDrawPower)
-        {
-            getPower = StartCoroutine(nameof(GetPower));
-        }
+            if (gimbal.target != null)
+            {
+                //Debug.DrawLine(gimbal.puppet.position, gimbal.target.transform.position, new Color(255, 0, 0, 0.1f), 0.1f);
+            }
 
-        GetTarget();
-        if (foundTarget && canFire)
-        {
-            fire = StartCoroutine(nameof(Fire));
+            if (canDrawPower)
+            {
+                getPower = StartCoroutine(nameof(GetPower));
+            }
+
+            GetTarget();
+            if (foundTarget && canFire)
+            {
+                fire = StartCoroutine(nameof(Fire));
+            }
+
         }
 
     }
@@ -207,6 +220,8 @@ public class WeaponBase : Entity
                 yield break;
             }
         }
+
+        OnFire.Invoke();
 
         Vector3 fireDirection = firePoint.TransformDirection(Vector3.forward);
         List<RaycastHit> hits = Physics.RaycastAll(firePoint.position, fireDirection).ToList();

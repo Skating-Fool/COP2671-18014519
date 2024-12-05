@@ -13,11 +13,12 @@ public class HUD : MonoBehaviour
 
     public UI_BarDisplay EU_Bar;
     public TMP_Text EnemyCount_Text;
-
     public TMP_Text MetalCount_Text;
+    public TMP_Text WaveNumber_Text;
 
     private string EnemyCount_Init;
     private string MetalCount_Init;
+    private string WaveNumber_Init;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class HUD : MonoBehaviour
         EU_Bar.Max = resourceManager.powerCapacity;
         EnemyCount_Init = EnemyCount_Text.text;
         MetalCount_Init = MetalCount_Text.text;
+        WaveNumber_Init = WaveNumber_Text.text;
 
     }
 

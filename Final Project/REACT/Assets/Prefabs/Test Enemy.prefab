@@ -371,6 +371,7 @@ MonoBehaviour:
   friendlyFire: 0
   ignoreTeam: 0
   target: {fileID: 0}
+  meshRenderer: {fileID: 3695108992049077193}
 --- !u!114 &6443614711883335645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,5 +510,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}

@@ -10,13 +10,20 @@ public class Machine_Reactor : Entity
 
     public bool running = true;
 
+    public Gradient healthGradient = new Gradient();
+    public Color healthColor;
+
+    [SerializeField] private Renderer meshRenderer;
+
     private bool canGenerate = true;
 
     public override void Start()
     {
 
         base.Start();
-        
+
+        meshRenderer = meshRenderer != null ? meshRenderer : GetComponent<Renderer>();
+
     }
 
     void Update()
@@ -25,6 +32,11 @@ public class Machine_Reactor : Entity
         {
             StartCoroutine(nameof(GeneratePower));
         }
+
+        healthColor = healthGradient.Evaluate(health / maxHealth);
+
+        meshRenderer.material.SetColor("_Color", healthColor);
+
     }
 
     private IEnumerator GeneratePower()

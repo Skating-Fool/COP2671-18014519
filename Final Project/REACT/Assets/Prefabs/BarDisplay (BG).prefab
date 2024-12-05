@@ -221,7 +221,9 @@ MonoBehaviour:
   overMaxColor: {r: 0, g: 0.89161587, b: 1, a: 1}
   bgTransform: {fileID: 5233078182803933936}
   fgTransform: {fileID: 3087364577054620287}
+  fgImage: {fileID: 3481177859391099301}
   dataText: {fileID: 8844617631710644292}
+  testMode: 0
 --- !u!1 &5374880140631392468
 GameObject:
   m_ObjectHideFlags: 0
