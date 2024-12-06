@@ -54,7 +54,7 @@ public class TrackSpawner : MonoBehaviour
         int count = 0;
         while (run)
         {
-            if (count >= limit && limit <= 0)
+            if (count >= limit && limit > 0)
             {
                 break;
             }

@@ -42,6 +42,23 @@ public class WeaponBase : Entity
 
     private Coroutine getPower;
 
+    public override string SelectionData
+    {
+        get
+        {
+            string text =
+                $"<color=red>Health: <color=white>{health}/{maxHealth}\n" +
+                $"<color=#b00>Damage: <color=white>{damage}\n" +
+                $"<color=#b00>Crit Amount: <color=white>{critAmount}\n" +
+                $"<color=#b00>Cooldown: <color=white>{cooldown}s\n" +
+                $"<color=#FFE600>Power: <color=white>{power}/{powerCapacity}\n" +
+                $"<color=#FFE600>Power Draw: <color=white>{powerDraw}EU\n" +
+                $"<color=#FFE600>Power Draw Delay: <color=white>{powerDrawDelay}s\n" +
+                $"<color=blue>Team: <color=white> {team}";
+            return externalSelectionText + text;
+        }
+    }
+
     public override void Start()
     {
         base.Start();
@@ -364,18 +381,4 @@ public class WeaponBase : Entity
             }
         }
     }
-
-    public override void OnSelectEvent(GameObject gameObject, int mouseClickNum)
-    {
-        if (transform.gameObject.Equals(gameObject))
-        {
-
-            if ( mouseClickNum == 1)
-            {
-                Debug.Log($"[{name}] Click Event Not Implemented Yet");
-            }
-            
-        }
-    }
-
 }

@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: Enemy
+  externalSelectionText: '<color=green>Name: <color=white>Basic Enemy\n'
   metalAmount: 1
   isAlive: 1
   destroyOnDeath: 1

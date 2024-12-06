@@ -1302,6 +1302,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: Ally
+  externalSelectionText: '<color=green>Name: <color=white>Reactor\n'
+  metalAmount: 0
   isAlive: 1
   destroyOnDeath: 1
   health: 100

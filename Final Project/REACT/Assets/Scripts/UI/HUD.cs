@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using System;
 
@@ -53,7 +52,7 @@ public class HUD : MonoBehaviour
         MetalCount_Text.text = $"{MetalCount_Init}{resourceManager.metal}";
         WaveNumber_Text.text = $"{gameManager.wave}{WaveNumber_Init}";
         TimeSpan timeSpan = TimeSpan.FromSeconds(gameManager.waveTimeLeft);
-        WaveTime_Text.text = $"{timeSpan.Minutes}:{timeSpan.Seconds}{WaveTime_Init}";
+        WaveTime_Text.text = $"{timeSpan.Minutes.ToString("00")}:{timeSpan.Seconds.ToString("00")}{WaveTime_Init}";
 
     }
 }

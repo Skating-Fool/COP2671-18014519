@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Entity : MonoBehaviour
 {
     public string team;
+    public string externalSelectionText;
     public int metalAmount = 0;
     public bool isAlive = true;
     public bool destroyOnDeath = true;
@@ -62,11 +63,23 @@ public class Entity : MonoBehaviour
 
     }
 
+    public virtual string SelectionData
+    {
+        get
+        {
+            string text =
+                $"<color=red>Health: <color=white>{health}/{maxHealth}\n" +
+                $"<color=#9C9C9C>Metal Worth: <color=white>{metalAmount}\n" +
+                $"<color=blue>Team: <color=white> {team}";
+            return externalSelectionText + text;
+        }
+    }
+
     public virtual void OnSelectEvent(GameObject gameObject, int mouseClickNum)
     {
         if (transform.gameObject.Equals(gameObject))
         {
-            Debug.Log($"[{name}] Click Event Not Implemented Yet");
+            FindObjectOfType<UI_Inspector>().InspectedEntity = this;
         }
     }
 

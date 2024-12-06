@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
         {
             resourceManager = FindObjectOfType<ResourceManager>();
         }
+
+        waveTime = initalWaveTime + (wave * timeAddEachWave);
+        waveTimeLeft = waveTime;
+
     }
     
     void Update()
@@ -82,13 +86,21 @@ public class GameManager : MonoBehaviour
             {
                 waveTimeLeft -= Time.deltaTime;
             }
-            else if (enemyCount == 0)
-            {
-                WaveComplete();
-            }
             else
             {
+
                 waveTimeLeft = 0;
+
+                foreach (TrackSpawner spawner in spawners)
+                {
+                    spawner.run = false;
+                }
+
+            }
+
+            if (enemyCount == 0)
+            {
+                WaveComplete();
             }
             
         }
@@ -130,11 +142,6 @@ public class GameManager : MonoBehaviour
         waveTimeLeft = waveTime;
 
         Debug.Log("Wave Complete");
-
-        foreach (TrackSpawner spawner in spawners)
-        {
-            spawner.run = false;
-        }
 
     }
 

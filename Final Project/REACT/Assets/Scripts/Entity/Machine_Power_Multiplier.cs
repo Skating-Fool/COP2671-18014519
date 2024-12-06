@@ -15,25 +15,23 @@ public class Machine_Power_Multiplier : Entity
 
         base.Start();
         reactor = FindAnyObjectByType<Machine_Reactor>();
-        Assert.IsNotNull(reactor);
-        reactor.EUPerTick = reactor.EUPerTick * powerMultiplyAmount;
+        if (reactor != null)
+        {
+            reactor.EUPerTick = reactor.EUPerTick * powerMultiplyAmount;
+        }
         // :3
 
     }
 
-    public override void OnSelectEvent(GameObject gameObject, int mouseClickNum)
+    public override string SelectionData
     {
-
-        if (transform.gameObject.Equals(gameObject))
+        get
         {
-
-            if (mouseClickNum == 1)
-            {
-                Debug.Log($"[{name}] Click Event Not Implemented Yet");
-            }
-
+            string text =
+                $"<color=red>Health: <color=white>{health} / {maxHealth}\n" +
+                $"<color=#FFE600>Multiply Amount: <color=white>{powerMultiplyAmount}\n";
+            return externalSelectionText + text;
         }
-
     }
 
 }

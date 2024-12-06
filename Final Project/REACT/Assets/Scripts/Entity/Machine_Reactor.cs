@@ -17,6 +17,19 @@ public class Machine_Reactor : Entity
 
     private bool canGenerate = true;
 
+    public override string SelectionData
+    {
+        get
+        {
+            string text =
+                $"<color=red>Health: <color=white>{health}/{maxHealth}\n" +
+                $"<color=#FFE600>Power: <color=white>{resourceManager.power}/{resourceManager.powerCapacity}\n" +
+                $"<color=#FFE600>EU Per Tick: <color=white>{EUPerTick}\n" +
+                $"<color=#FFE600>Tick Delay: <color=white>{DelayBetweenTicks}\n";
+            return externalSelectionText + text;
+        }
+    }
+
     public override void Start()
     {
 
@@ -59,19 +72,6 @@ public class Machine_Reactor : Entity
         }
         yield return new WaitForSeconds(DelayBetweenTicks);
         canGenerate = true;
-    }
-
-    public override void OnSelectEvent(GameObject gameObject, int mouseClickNum)
-    {
-        if (transform.gameObject.Equals(gameObject))
-        {
-
-            if (mouseClickNum == 1)
-            {
-                Debug.Log($"[{name}] Click Event Not Implemented Yet");
-            }
-
-        }
     }
 
 }

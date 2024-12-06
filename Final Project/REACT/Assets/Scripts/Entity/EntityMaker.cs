@@ -26,9 +26,9 @@ public class EntityMaker : MonoBehaviour
         if (transform.gameObject.Equals(gameObject))
         {
 
-            if (mouseClickNum == 1 && resourceManager.metal >= 5)
+            if (mouseClickNum == 1 && resourceManager.metal >= cost)
             {
-                resourceManager.metal -= 5;
+                resourceManager.metal -= cost;
                 Instantiate(prefab, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
