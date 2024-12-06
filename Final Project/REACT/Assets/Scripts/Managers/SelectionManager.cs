@@ -69,6 +69,15 @@ public class SelectionManager : MonoBehaviour
             }
 
         }
+        else
+        {
+
+            if (cursor != null)
+            {
+                cursor.SetActive(false);
+            }
+
+        }
 
     }
 

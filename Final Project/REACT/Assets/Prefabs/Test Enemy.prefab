@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: Enemy
+  metalAmount: 1
   isAlive: 1
   destroyOnDeath: 1
   health: 100

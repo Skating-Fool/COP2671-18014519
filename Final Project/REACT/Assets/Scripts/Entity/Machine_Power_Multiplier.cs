@@ -23,6 +23,7 @@ public class Machine_Power_Multiplier : Entity
 
     public override void OnSelectEvent(GameObject gameObject, int mouseClickNum)
     {
+
         if (transform.gameObject.Equals(gameObject))
         {
 
@@ -32,6 +33,7 @@ public class Machine_Power_Multiplier : Entity
             }
 
         }
+
     }
 
 }

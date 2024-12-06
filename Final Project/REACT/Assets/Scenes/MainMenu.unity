@@ -26505,6 +26505,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 936745558}
+    - target: {fileID: 2461919901766757939, guid: 87f419d43e36fde4293e1f336e14b3ec, type: 3}
+      propertyPath: canFire
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461919901766757939, guid: 87f419d43e36fde4293e1f336e14b3ec, type: 3}
+      propertyPath: isAlive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461919901766757939, guid: 87f419d43e36fde4293e1f336e14b3ec, type: 3}
+      propertyPath: drawPower
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2701226848476581845, guid: 87f419d43e36fde4293e1f336e14b3ec, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -26601,6 +26613,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1963336509}
+    - target: {fileID: 8701035473820747738, guid: 87f419d43e36fde4293e1f336e14b3ec, type: 3}
+      propertyPath: TestMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701035473820747738, guid: 87f419d43e36fde4293e1f336e14b3ec, type: 3}
+      propertyPath: TestModeLimits.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

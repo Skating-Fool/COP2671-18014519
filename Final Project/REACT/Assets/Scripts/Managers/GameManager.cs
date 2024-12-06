@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
 
     public bool waveActive;
     public int wave = 1;
+    public float initalWaveTime = 30.0f;
+    public float timeAddEachWave = 15.0f;
     public float waveTime;
+    public float waveTimeLeft;
     public float waveScale;
 
     public string playerTeam;
@@ -17,11 +21,16 @@ public class GameManager : MonoBehaviour
     public int startingDifficulty;
     public int difficulty;
 
+    [SerializeField] private float defaultTimeScale = 1.0f;
+
     public TrackSpawner[] spawners;
 
     public int enemyCount;
 
     public List<Entity> enemies = new();
+
+    public UnityEvent OnWaveFail;
+    public UnityEvent OnWaveComplete;
 
     // I like the idea of multiple resourceManagers, one for each team,
     // -but i'm making this a backlog thing for now.
@@ -30,6 +39,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+        OnWaveComplete ??= new UnityEvent();
+        OnWaveFail ??= new UnityEvent();
+
+        Time.timeScale = defaultTimeScale;
+
         //resourceManagers = new List<ResourceManager>(FindObjectsOfType<ResourceManager>());
         if (resourceManager == null)
         {
@@ -40,10 +55,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (!waveActive)
-        {
-            StartWave();
-        }
 
         enemies.Clear();
         foreach (TrackSpawner spawner in spawners)
@@ -64,21 +75,78 @@ public class GameManager : MonoBehaviour
 
         enemyCount = enemies.Count;
 
+        if (waveActive)
+        {
+
+            if (waveTimeLeft > 0)
+            {
+                waveTimeLeft -= Time.deltaTime;
+            }
+            else if (enemyCount == 0)
+            {
+                WaveComplete();
+            }
+            else
+            {
+                waveTimeLeft = 0;
+            }
+            
+        }
+
     }
 
-    public void StartWave(int? waveOverride = null)
+    public void PauseTime()
+    {
+        Time.timeScale = 0.0f;
+    }
+
+    public void UnPauseTime()
+    {
+        Time.timeScale = defaultTimeScale;
+    }
+
+    public void WaveFail()
     {
 
-        if (waveOverride != null)
+        OnWaveFail.Invoke();
+        waveActive = false;
+
+        Debug.Log("Wave Failed");
+
+        foreach (TrackSpawner spawner in spawners)
         {
-            wave = waveOverride.Value;
-        }
-        else
-        {
-            wave++;
+            spawner.run = false;
         }
 
+    }
+
+    public void WaveComplete()
+    {
+
+        OnWaveComplete.Invoke();
+        waveActive = false;
+        wave++;
+        waveTime = initalWaveTime + (wave * timeAddEachWave);
+        waveTimeLeft = waveTime;
+
+        Debug.Log("Wave Complete");
+
+        foreach (TrackSpawner spawner in spawners)
+        {
+            spawner.run = false;
+        }
+
+    }
+
+    public void StartWave()
+    {
+
         waveActive = true;
+
+        foreach (TrackSpawner spawner in spawners)
+        {
+            spawner.run = true;
+        }
 
     }
 

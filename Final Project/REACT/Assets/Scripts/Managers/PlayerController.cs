@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
         // Open Pause Menu
         if (Input.GetKeyDown("escape"))
         {
-            pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+            pauseMenu.ToggleWindow(pauseMenu.gameObject);
+            
         }
 
         // Move Camera

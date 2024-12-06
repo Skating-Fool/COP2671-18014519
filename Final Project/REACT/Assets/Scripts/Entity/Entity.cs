@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Entity : MonoBehaviour
 {
     public string team;
+    public int metalAmount = 0;
     public bool isAlive = true;
     public bool destroyOnDeath = true;
     public float health = 100.0f;
@@ -48,6 +49,9 @@ public class Entity : MonoBehaviour
                 OnDeath.Invoke(this);
                 if (destroyOnDeath)
                 {
+                    // Give metal to player team, this needs to be edited when
+                    // - or if mutiple teams are ever set up
+                    resourceManager.metal += metalAmount;
                     Destroy(gameObject);
                 }
             }

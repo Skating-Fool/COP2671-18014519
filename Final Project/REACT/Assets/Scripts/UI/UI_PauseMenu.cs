@@ -9,15 +9,23 @@ public class PauseMenu : MonoBehaviour
 
     public void ToggleWindow(GameObject window)
     {
-        window.SetActive(!window.activeSelf);
-        if (gameObject.activeSelf)
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        SelectionManager selectionManager = FindObjectOfType<SelectionManager>();
+
+        if (!window.activeSelf)
         {
-            //Time.timeScale = 0.0f;
+            if (gameManager != null) { gameManager.PauseTime(); }
+            if (selectionManager != null) { selectionManager.enableSelection = false; }
+            window.SetActive(true);
         }
         else
         {
-            //Time.timeScale = 1.0f;
+            if (gameManager != null) { gameManager.UnPauseTime(); }
+            if (selectionManager != null) { selectionManager.enableSelection = true; }
+            window.SetActive(false);
         }
+
     }
 
     public void BackToMainMenu()
