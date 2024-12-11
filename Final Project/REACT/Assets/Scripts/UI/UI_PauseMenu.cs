@@ -1,17 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
 
+    public GameObject[] disableOnEnable;
+
+    private GameManager gameManager;
+    private SelectionManager selectionManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        selectionManager = FindObjectOfType<SelectionManager>();
+    }
+
+    private void OnEnable()
+    {
+        foreach (GameObject item in disableOnEnable)
+        {
+            item.SetActive(false);
+        }
+    }
+
     public void ToggleWindow(GameObject window)
     {
-
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        SelectionManager selectionManager = FindObjectOfType<SelectionManager>();
 
         if (!window.activeSelf)
         {

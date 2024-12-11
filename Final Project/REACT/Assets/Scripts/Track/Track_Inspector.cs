@@ -1,10 +1,8 @@
 #if UNITY_EDITOR
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 [CustomEditor(typeof(Track))]
 public class Track_Inspector : Editor
@@ -29,7 +27,7 @@ public class Track_Inspector : Editor
     {
 
         VisualElement root = new VisualElement();
-        
+
         m_InspectorXML = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/InspectorUI/Track_Inspector.uxml");
         root = m_InspectorXML.Instantiate();
 
@@ -46,7 +44,7 @@ public class Track_Inspector : Editor
         b_DeleteLast.RegisterCallback<ClickEvent>(DeleteLast);
 
         VisualElement InspectorFoldout = root.Q("Default_Inspector");
-        
+
         // Attach a default Inspector to the Foldout.
         InspectorElement.FillDefaultInspector(InspectorFoldout, serializedObject, this);
 

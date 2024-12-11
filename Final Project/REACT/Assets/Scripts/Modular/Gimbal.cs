@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Gimbal : MonoBehaviour
 {
@@ -12,7 +8,7 @@ public class Gimbal : MonoBehaviour
     // Keep upright
 
     public bool instantSnap = false;
-    
+
     public bool TestMode = false;
     public Vector3 TestModeLimits = new Vector3(10, 10, 10);
 
@@ -55,7 +51,7 @@ public class Gimbal : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()

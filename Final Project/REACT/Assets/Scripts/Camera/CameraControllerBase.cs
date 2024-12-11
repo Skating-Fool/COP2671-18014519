@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControllerBase : MonoBehaviour
 {
+
+    [SerializeField] protected private GameObject cameraObject;
     public float moveSpeed = 10f;
     public float rotationSpeed = 100f;
 
@@ -12,8 +12,7 @@ public class CameraControllerBase : MonoBehaviour
 
     public virtual void SendCameraToHome()
     {
-        transform.position = homePosition;
-        transform.rotation = defaultRotation;
+        transform.SetPositionAndRotation(homePosition, defaultRotation);
     }
 
     public virtual void SetHome()
@@ -21,7 +20,7 @@ public class CameraControllerBase : MonoBehaviour
 
         homePosition = transform.position;
         defaultRotation = transform.rotation;
-        
+
     }
 
     public virtual void MoveRight() { }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OthorgraphicCamera : CameraControllerBase
@@ -8,38 +6,30 @@ public class OthorgraphicCamera : CameraControllerBase
     public float MinimumHeight = 2;
     public float MaximumHeight = 20;
 
-    void Start()
+    private void Start()
     {
-        
+        SetHome();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public override void MoveRight()
     {
-        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.right);
     }
 
     public override void MoveLeft()
     {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.left);
     }
 
     public override void MoveForward()
     {
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * new Vector3(0, 0, 1));
     }
 
     public override void MoveBackward()
     {
-        transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * new Vector3(0, 0, -1));
     }
-
 
     public override void RotateRight()
     {

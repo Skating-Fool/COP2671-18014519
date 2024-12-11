@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class TrackTrain : MonoBehaviour
@@ -35,7 +32,7 @@ public class TrackTrain : MonoBehaviour
                 Debug.LogWarning($"This TrackTrain is not on a track, therefore can't go to ({value}) This Point will be clamped");
                 _targetIndex = value;
             }
-            
+
         }
     }
 

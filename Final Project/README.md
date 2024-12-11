@@ -15,6 +15,7 @@
 - SPACE : Fly Up
 - LEFT SHIFT : Fly Down
 - MOUSE 1 : Select
+- MOUSE 1 + LEFT ALT : Deselect
 - MOUSE 2 : Rotate Camera
 - NUMBER 1 : Switch To Free Camera
 - NUMBER 2 : Switch To Top Down Camera

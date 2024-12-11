@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -36,7 +33,7 @@ public class UI_BarDisplay : MonoBehaviour
         get => data;
         set
         {
-            
+
             data = value;
 
             float roundedValue = Round(value);
@@ -66,7 +63,7 @@ public class UI_BarDisplay : MonoBehaviour
                     dataText.text = $"{roundedValue} / {max}";
                 }
             }
-            
+
 
             if (value >= min && value <= max)
             {
@@ -74,7 +71,7 @@ public class UI_BarDisplay : MonoBehaviour
             }
             else if (value > max) { fgTransform.sizeDelta = bgTransform.sizeDelta; }
             else if (value < min) { fgTransform.sizeDelta = new Vector2(0, bgTransform.sizeDelta.y); }
-            
+
         }
     }
 

@@ -72,7 +72,7 @@ public class TrackSpawner : MonoBehaviour
                 newTrain.TargetIndex = startPointOverride;
                 count++;
                 trainList.Add(newTrain);
-                
+
                 yield return new WaitForSeconds(delaySeconds);
             }
         }

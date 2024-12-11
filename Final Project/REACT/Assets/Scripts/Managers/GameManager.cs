@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Resources;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,7 +53,7 @@ public class GameManager : MonoBehaviour
         waveTimeLeft = waveTime;
 
     }
-    
+
     void Update()
     {
 
@@ -102,7 +100,7 @@ public class GameManager : MonoBehaviour
             {
                 WaveComplete();
             }
-            
+
         }
 
     }

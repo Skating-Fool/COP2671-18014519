@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TopdownCamera : CameraControllerBase
 {
 
-    public float MinimumHeight = 2; 
+    public float MinimumHeight = 2;
     public float MaximumHeight = 20;
 
     public float sensitivity = 600;
@@ -21,7 +18,7 @@ public class TopdownCamera : CameraControllerBase
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override void RotateWithMouse()
@@ -35,22 +32,22 @@ public class TopdownCamera : CameraControllerBase
 
     public override void MoveRight()
     {
-        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.right);
     }
 
     public override void MoveLeft()
     {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.left);
     }
 
     public override void MoveForward() // SCREEN UP
     {
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.up);
     }
 
     public override void MoveBackward() // SCREEN DOWN
     {
-        transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.down);
     }
 
     public override void MoveUp() // SCENE UP
@@ -58,9 +55,9 @@ public class TopdownCamera : CameraControllerBase
 
         if (transform.position.y < MaximumHeight)
         {
-            transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+            transform.Translate(moveSpeed * Time.deltaTime * Vector3.back);
         }
-        
+
     }
 
     public override void MoveDown() // SCENE DOWN
@@ -68,7 +65,7 @@ public class TopdownCamera : CameraControllerBase
 
         if (transform.position.y > MinimumHeight)
         {
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
         }
 
     }

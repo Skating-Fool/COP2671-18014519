@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(LineRenderer))]
@@ -63,7 +60,7 @@ public class Track : MonoBehaviour
         }
 
         return points[ID].gameObject;
-        
+
     }
 
     public void UpdatePoints()
@@ -95,7 +92,7 @@ public class Track : MonoBehaviour
                 }
 
                 pointPositions.Add(t.position);
-                
+
             }
 
         }

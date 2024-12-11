@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,7 +10,7 @@ public class SelectionManager : MonoBehaviour
     public GameObject cursor;
 
     public static UnityEvent<GameObject, int> OnSelect;
-    
+
     private Ray ray;
     private RaycastHit rayHit;
 
@@ -38,7 +35,12 @@ public class SelectionManager : MonoBehaviour
 
                     cursor.SetActive(true);
 
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftAlt))
+                    {
+                        UI_Inspector ui_inspector = FindAnyObjectByType<UI_Inspector>();
+                        ui_inspector.InspectedEntity = null;
+                    }
+                    else if (Input.GetMouseButtonDown(0))
                     {
                         Select(1);
                     }

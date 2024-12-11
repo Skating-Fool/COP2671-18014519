@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.EventSystems;
 using System;
+using TMPro;
+using UnityEngine;
 
 public class HUD : MonoBehaviour
 {
-    
+
     [SerializeField] private ResourceManager resourceManager;
     [SerializeField] private GameManager gameManager;
 

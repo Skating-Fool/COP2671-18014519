@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Enemy : Entity
 {
@@ -64,7 +62,7 @@ public class Enemy : Entity
     {
         base.Start();
         meshRenderer = meshRenderer != null ? meshRenderer : GetComponent<Renderer>();
-        
+
     }
 
     // Update is called once per frame
@@ -157,7 +155,7 @@ public class Enemy : Entity
     {
 
         canFire = false;
-        
+
         Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
         Vector3 targetPoint;
         if (targetRigidbody != null)
@@ -235,7 +233,7 @@ public class Enemy : Entity
             }
 
         }
-        
+
         yield return new WaitForSeconds(cooldown);
         canFire = true;
 

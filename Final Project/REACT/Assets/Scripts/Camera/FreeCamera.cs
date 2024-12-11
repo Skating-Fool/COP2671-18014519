@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 public class FreeCamera : CameraControllerBase
 {
@@ -23,12 +20,6 @@ public class FreeCamera : CameraControllerBase
     {
         SetHome();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public override void SetHome()
@@ -79,39 +70,39 @@ public class FreeCamera : CameraControllerBase
 
         //xRotation = Mathf.Clamp(xRotation - 90, -90.0f, 90.0f);
 
-        XAxis.localRotation = Quaternion.Euler(new Vector3(xRotation, 0, 0)); 
+        XAxis.localRotation = Quaternion.Euler(new Vector3(xRotation, 0, 0));
         YAxis.Rotate(new Vector3(0, mouseX, 0));
 
     }
 
     public override void MoveRight()
     {
-        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.right);
     }
 
     public override void MoveLeft()
     {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.left);
     }
 
     public override void MoveForward()
     {
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
     }
 
     public override void MoveBackward()
     {
-        transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.back);
     }
 
     public override void MoveUp()
     {
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.up);
     }
 
     public override void MoveDown()
     {
-        transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.down);
     }
 
     public override void RotateRight()

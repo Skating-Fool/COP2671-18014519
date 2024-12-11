@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public enum Cam
 {
@@ -12,7 +9,7 @@ public enum Cam
 
 public class CameraManager : MonoBehaviour
 {
-    
+
     public GameObject freeCamera;
     public GameObject topdownCamera;
     public GameObject orthographicCamera;
@@ -56,10 +53,10 @@ public class CameraManager : MonoBehaviour
             cam.SetActive(false);
         }
 
-        cameras[(int) camera].SetActive(true);
+        cameras[(int)camera].SetActive(true);
         currentCamera = camera;
-        currentCameraComponent = cameraComponents[(int) camera];
-        currentCameraController = cameras[(int) camera].GetComponent<CameraControllerBase>();
+        currentCameraComponent = cameraComponents[(int)camera];
+        currentCameraController = cameras[(int)camera].GetComponent<CameraControllerBase>();
 
     }
 

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class WeaponBase : Entity
@@ -38,6 +38,9 @@ public class WeaponBase : Entity
     public float power = 100.0f;
     public float powerCapacity = 100.0f;
 
+    public GameObject hitTempSoundPrefab;
+    public AudioClip[] hitSounds;
+
     private bool canDrawPower = true;
 
     private Coroutine getPower;
@@ -71,7 +74,7 @@ public class WeaponBase : Entity
 
     void Update()
     {
-        
+
         if (isAlive)
         {
 
@@ -97,7 +100,7 @@ public class WeaponBase : Entity
 
     void GetTarget()
     {
-        
+
         foundTarget = false;
 
         foreach (GameObject obj in detectionTrigger.objectsList)
@@ -131,14 +134,13 @@ public class WeaponBase : Entity
         {
             gimbal.target = gimbal.defaultTarget;
         }
-        
+
     }
 
     public float DamageAmount
     {
         get
         {
-            float amount = 0;
             if (constantDamage)
             {
                 return damage;
@@ -146,7 +148,7 @@ public class WeaponBase : Entity
             else
             {
 
-                amount = damage * Random.Range(damage / 2, damage * 1.5f);
+                float amount = damage * Random.Range(damage / 2, damage * 1.5f);
 
                 // Is Crit?
                 if (Random.value <= critChance)
@@ -225,6 +227,28 @@ public class WeaponBase : Entity
         canDrawPower = true;
     }
 
+    private void PlayHitSound(Vector3 position, AudioClip[] soundClips)
+    {
+        // Play sound at hit point
+        if (soundClips.Length > 0 && hitTempSoundPrefab != null)
+        {
+
+            AudioClip clip = soundClips[Random.Range(0, soundClips.Length)];
+
+            if (clip != null)
+            {
+                GameObject newTempAudio = Instantiate(hitTempSoundPrefab, position, new Quaternion());
+                AudioSource tempAudioSource = newTempAudio.GetComponent<AudioSource>();
+                tempAudioSource.clip = clip;
+                newTempAudio.GetComponent<TempSound>().Play();
+            }
+            else
+            {
+                Debug.LogWarning("Hit SoundClip Not Found");
+            }
+        }
+    }
+
     private IEnumerator Fire()
     {
         canFire = false;
@@ -257,19 +281,19 @@ public class WeaponBase : Entity
                 continue;
             }
 
+            // Debug line showing hit position 
             Debug.DrawLine(hit.point, hit.point + (hit.normal / 2), randomColor, 1f);
 
             GameObject objectHit = hit.collider.gameObject;
 
-            Entity entity = objectHit.GetComponent<Entity>();
-
-            if (entity != null)
+            if (objectHit.TryGetComponent(out Entity entity))
             {
 
                 if (entity.team != team)
                 {
 
                     entity.Damage(DamageAmount);
+                    PlayHitSound(hit.point, entity.onHitSounds);
 
                     if (penetrate && entity != null)
                     {
@@ -284,6 +308,7 @@ public class WeaponBase : Entity
                     {
 
                         entity.Damage(DamageAmount);
+                        PlayHitSound(hit.point, entity.onHitSounds);
 
                         if (penetrate && entity != null)
                         {
@@ -299,6 +324,10 @@ public class WeaponBase : Entity
                     break;
                 }
 
+            }
+            else
+            {
+                PlayHitSound(hit.point, hitSounds);
             }
 
         }

@@ -325,6 +325,12 @@ MonoBehaviour:
   destroyOnDeath: 1
   health: 100
   maxHealth: 100
+  onHitSounds:
+  - {fileID: 8300000, guid: 623183873573b9c4aa1cc3aff44a4dba, type: 3}
+  - {fileID: 8300000, guid: eff04631dc1bf5142b0eedf83b23ec99, type: 3}
+  - {fileID: 8300000, guid: 57587f63a327aa54fac473e1bfcfc6d5, type: 3}
+  - {fileID: 8300000, guid: b8350435f49406b44a374c994b517410, type: 3}
+  - {fileID: 8300000, guid: 324dc3a0a35956e4b861f874cfa3cdf8, type: 3}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
