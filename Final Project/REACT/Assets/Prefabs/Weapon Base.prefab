@@ -1063,7 +1063,7 @@ MonoBehaviour:
   friendlyFire: 0
   ignoreTeam: 0
   powerDraw: 5
-  powerDrawDelay: 0.5
+  powerDrawDelay: 0.3
   drawPower: 1
   power: 100
   powerCapacity: 100
