@@ -49,3 +49,8 @@ Used to make Turrets and Makers.
 
 ### EU (Energy Unit)
 Used to power Weapons, if you run out of power your Weapons won't be able to fire at enemies.
+
+### Placeholder Sounds
+Placeholder sounds are from Half-Life 2 by Valve
+https://www.valvesoftware.com/en/
+https://store.steampowered.com/app/220/HalfLife_2/
