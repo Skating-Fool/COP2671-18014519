@@ -308,14 +308,16 @@ MonoBehaviour:
   waveTimeLeft: 0
   waveScale: 0
   playerTeam: 
-  keyWaveInterval: 5
   startingDifficulty: 0
   difficulty: 0
   defaultTimeScale: 1
   spawners:
-  - {fileID: 1420566276}
+  - {fileID: 1420566278}
   enemyCount: 0
   enemies: []
+  OnWaveStart:
+    m_PersistentCalls:
+      m_Calls: []
   OnWaveFail:
     m_PersistentCalls:
       m_Calls: []
@@ -13573,7 +13575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1420566277}
-  - component: {fileID: 1420566276}
+  - component: {fileID: 1420566278}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -13581,25 +13583,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1420566276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420566275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76989ba6486f13468e63172bb65be5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 8465019063367363011, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
-  track: {fileID: 3388331879083839924}
-  startPointOverride: 0
-  delaySeconds: 1
-  limit: 9
-  run: 1
-  trainList: []
 --- !u!4 &1420566277
 Transform:
   m_ObjectHideFlags: 0
@@ -13615,6 +13598,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1420566278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420566275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68c0b80a68570f4f8f9299b304f8999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8465019063367363011, guid: 5781fde4616cf3346b78429ac2e0f72a, type: 3}
+  track: {fileID: 3388331879083839924}
+  startPointOverride: 0
+  delaySeconds: 1
+  limit: 9
+  run: 1
+  trainList: []
+  enableOnWave: 0
+  logicalMode: 0
+  debugLogicalOutput: 
+  gameManager: {fileID: 0}
 --- !u!1001 &1451119213
 PrefabInstance:
   m_ObjectHideFlags: 0

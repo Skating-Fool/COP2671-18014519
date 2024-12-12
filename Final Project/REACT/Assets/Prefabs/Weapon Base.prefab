@@ -1013,7 +1013,7 @@ MonoBehaviour:
     Cost: <color=white>15\n'
   metalAmount: 0
   isAlive: 1
-  destroyOnDeath: 1
+  destroyOnDeath: 0
   health: 100
   maxHealth: 100
   onHitSounds: []
@@ -1681,7 +1681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4074434560114112812, guid: 0b171961d749563448fcc2e26d036537, type: 3}
       propertyPath: yawSpeed
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4758673122769657374, guid: 0b171961d749563448fcc2e26d036537, type: 3}
       propertyPath: m_VersionIndex

@@ -28,13 +28,11 @@ public class PauseMenu : MonoBehaviour
 
         if (!window.activeSelf)
         {
-            if (gameManager != null) { gameManager.PauseTime(); }
             if (selectionManager != null) { selectionManager.enableSelection = false; }
             window.SetActive(true);
         }
         else
         {
-            if (gameManager != null) { gameManager.UnPauseTime(); }
             if (selectionManager != null) { selectionManager.enableSelection = true; }
             window.SetActive(false);
         }

@@ -9,7 +9,7 @@ public class TrackTrain : MonoBehaviour
     private int _targetIndex = 0;
     private Vector3 targetPos;
 
-    public TrackSpawner creator;
+    public TrackTrainSpawner creator;
 
     public int TargetIndex
     {

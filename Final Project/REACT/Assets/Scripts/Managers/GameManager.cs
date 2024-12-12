@@ -8,25 +8,22 @@ public class GameManager : MonoBehaviour
     public bool waveActive;
     public int wave = 1;
     public float initalWaveTime = 30.0f;
-    public float timeAddEachWave = 15.0f;
+    public float timeAddEachWave = 1.0f;
     public float waveTime;
     public float waveTimeLeft;
-    public float waveScale;
 
     public string playerTeam;
 
-    public int keyWaveInterval = 5;
-    public int startingDifficulty;
-    public int difficulty;
-
     [SerializeField] private float defaultTimeScale = 1.0f;
 
-    public TrackSpawner[] spawners;
+    public EnemySpawner[] spawners;
 
+    [Tooltip("The number of currently spawned enemies")]
     public int enemyCount;
 
     public List<Entity> enemies = new();
 
+    public UnityEvent OnWaveStart;
     public UnityEvent OnWaveFail;
     public UnityEvent OnWaveComplete;
 
@@ -38,6 +35,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
+        OnWaveStart ??= new UnityEvent();
         OnWaveComplete ??= new UnityEvent();
         OnWaveFail ??= new UnityEvent();
 
@@ -57,9 +55,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-
         enemies.Clear();
-        foreach (TrackSpawner spawner in spawners)
+
+        foreach (EnemySpawner spawner in spawners)
         {
 
             foreach (TrackTrain train in spawner.trainList)
@@ -89,7 +87,7 @@ public class GameManager : MonoBehaviour
 
                 waveTimeLeft = 0;
 
-                foreach (TrackSpawner spawner in spawners)
+                foreach (TrackTrainSpawner spawner in spawners)
                 {
                     spawner.run = false;
                 }
@@ -123,11 +121,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Wave Failed");
 
-        foreach (TrackSpawner spawner in spawners)
-        {
-            spawner.run = false;
-        }
-
     }
 
     public void WaveComplete()
@@ -147,11 +140,7 @@ public class GameManager : MonoBehaviour
     {
 
         waveActive = true;
-
-        foreach (TrackSpawner spawner in spawners)
-        {
-            spawner.run = true;
-        }
+        OnWaveStart.Invoke();
 
     }
 

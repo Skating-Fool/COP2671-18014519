@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
-    public CameraManager cameraController;
-    public PauseMenu pauseMenu;
+    [SerializeField] private CameraManager cameraController;
+    [SerializeField] private PauseMenu pauseMenu;
 
-    private Vector2 OldCursorPos = new Vector2();
+    private Vector2 OldCursorPos = new();
 
     void Start()
     {

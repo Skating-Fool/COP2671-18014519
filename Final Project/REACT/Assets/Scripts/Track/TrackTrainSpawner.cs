@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrackSpawner : MonoBehaviour
+public class TrackTrainSpawner : MonoBehaviour
 {
 
     [SerializeField] private GameObject prefab;
@@ -14,18 +14,16 @@ public class TrackSpawner : MonoBehaviour
 
     public List<TrackTrain> trainList = new();
 
-    private bool canStart = false;
+    private protected bool canStart = false;
 
     private Coroutine spawningCoroutine;
 
-    void Start()
+    public virtual void Start()
     {
-
         spawningCoroutine = StartCoroutine(nameof(SpawnObject));
-
     }
 
-    void Update()
+    public virtual void Update()
     {
         if (canStart && run)
         {
@@ -34,7 +32,7 @@ public class TrackSpawner : MonoBehaviour
         }
     }
 
-    private void RemoveFromListOnDeath(Entity deadEnt)
+    public virtual void RemoveFromListOnDeath(Entity deadEnt)
     {
         TrackTrain train = deadEnt.GetComponentInChildren<TrackTrain>();
         if (train != null)
@@ -48,7 +46,7 @@ public class TrackSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnObject()
+    public virtual IEnumerator SpawnObject()
     {
 
         int count = 0;
