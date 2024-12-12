@@ -105,8 +105,8 @@ MonoBehaviour:
   metalAmount: 1
   isAlive: 1
   destroyOnDeath: 1
-  health: 200
-  maxHealth: 200
+  health: 400
+  maxHealth: 400
   onHitSounds:
   - {fileID: 8300000, guid: 623183873573b9c4aa1cc3aff44a4dba, type: 3}
   - {fileID: 8300000, guid: eff04631dc1bf5142b0eedf83b23ec99, type: 3}

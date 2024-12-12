@@ -33,7 +33,7 @@ Use Machines & Weapons to your advantage to protect the Reactor against waves of
 - Turret Maker
 
 ### Makers:
-Left clicking on a maker consumes some metal and in exchange spawns a Machine/Weapon depending on the type of Maker, the type of Maker is shown in text on top of it, Example: ("Make Power Multiplier", "Make Turret").
+Left clicking on a maker consumes some metal (20) and in exchange spawns a Machine/Weapon depending on the type of Maker, the type of Maker is shown in text on top of it, Example: ("Make Power Multiplier", "Make Turret").
 
 ### Enemies
 Enemies can vary in speed and/or health, they follow a pre set track, they damage any thing too close to them so watch out as damage can only be undone by restarting (Note: currently Machine/Weapon placement is only at fixed locations so this only applies to the Reactor at the end of the track).
